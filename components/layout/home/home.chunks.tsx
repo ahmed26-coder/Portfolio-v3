@@ -61,29 +61,27 @@ export function Services() {
       </div>
 
       <div className="container mx-auto flex flex-wrap justify-between gap-6 px-4">
-        {/* Web Design */}
+
         <article className="w-full dark:bg-zinc-900 sm:w-[48%] lg:w-[31%] p-6 rounded-2xl bg-muted transition-all border border-transparent hover:bg-transparent hover:border-primary hover:scale-[1.05]">
-          <Paintbrush className="text-primary mb-4 w-12 h-12" />
+          <Paintbrush className="text-pink-500 mb-4 w-12 h-12" />
           <h3 className="text-xl font-semibold mb-2">UI/UX Design</h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground dark:text-gray-300">
             I design responsive and modern user interfaces that provide a smooth user experience across all devices.
           </p>
         </article>
 
-        {/* Fast Performance */}
         <article className="w-full dark:bg-zinc-900 sm:w-[48%] lg:w-[31%] p-6 rounded-2xl bg-muted transition-all border border-transparent hover:bg-transparent hover:border-primary hover:scale-[1.05]">
-          <Rocket className="text-primary mb-4 w-12 h-12" />
+          <Rocket className="text-green-500 mb-4 w-12 h-12" />
           <h3 className="text-xl font-semibold mb-2">Performance Optimization</h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground dark:text-gray-300">
             I build fast and optimized websites using best practices like lazy loading, caching, and image optimization.
           </p>
         </article>
 
-        {/* Clean Code */}
         <article className="w-full dark:bg-zinc-900 sm:w-[48%] lg:w-[31%] p-6 rounded-2xl bg-muted transition-all border border-transparent hover:bg-transparent hover:border-primary hover:scale-[1.05]">
-          <Code className="text-primary mb-4 w-12 h-12" />
+          <Code className="text-yellow-500 mb-4 w-12 h-12" />
           <h3 className="text-xl font-semibold mb-2">Clean & Reusable Code</h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground dark:text-gray-300">
             I write clean, reusable, and well-structured code using React, Tailwind CSS, and modern development tools.
           </p>
         </article>

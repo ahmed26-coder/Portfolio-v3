@@ -74,7 +74,7 @@ export default function ProjectCard({
           <div className="text-xl font-bold tracking-tight">{title}</div>
         </div>
         <div className="p-4 pt-2">
-          <div className="line-clamp-3 text-zinc-600 dark:text-zinc-400">{disc}</div>
+          <div className="line-clamp-3 text-zinc-600 dark:text-zinc-300">{disc}</div>
         </div>
         <div className="flex flex-col items-start gap-4 p-4 pt-0">
           <div className="flex flex-wrap gap-2">
