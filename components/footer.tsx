@@ -27,7 +27,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="fixed bottom-0 left-0 w-full z-50 px-10 items-center h-fit flex flex-col sm:flex-row sm:flex-wrap justify-between py-[2%] sm:py-[0.5%] bg-gray-100 dark:bg-black text-left">
+      <footer className="w-full px-10 items-center h-fit flex flex-col sm:flex-row sm:flex-wrap justify-between py-[2%] sm:py-[0.5%] bg-gray-100 dark:bg-black text-left">
         <small className="dark:text-[#FFFFFF]/40 text-[#999999] flex items-center">
           <Image src="/logome6-removebg-preview.webp" alt="Logo" width={30} height={30} priority={true} />
           &copy;2025 {" "}

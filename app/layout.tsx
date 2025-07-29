@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={` relative bg-grid dark:.dark .bg-grid ${geistSans.variable} ${robotoSlab.variable} ${geistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="lg:flex min-h-screen">
+          <div className="lg:flex flex-col min-h-screen">
             <div className="lg:flex">
               <Nav />
               <main className="mb-20 px-3 sm:px-10 w-full">
