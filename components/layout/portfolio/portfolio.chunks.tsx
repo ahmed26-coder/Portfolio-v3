@@ -15,8 +15,8 @@ export default function Topportfolio() {
 
 export function Focus() {
   return (
-    <section className="my-16 mx-10">
-      <div className=" mx-auto items-center text-center mt-10">
+    <section className=" mx-10">
+      <div className=" mx-auto items-center text-center">
         <p className="text-[#666666]">What I’m currently improving</p>
         <h2 className="text-3xl md:text-4xl font-bold mb-8 font-play">My Development Focus</h2>
       </div>
