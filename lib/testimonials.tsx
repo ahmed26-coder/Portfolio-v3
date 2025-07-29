@@ -95,7 +95,7 @@ export function TestimonialsCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="flex justify-center mt-10 gap-3 items-center">
+      <div className="flex justify-center mt-5 gap-3 items-center">
         <CarouselPrevious />
         <CarouselNext />
       </div>

@@ -31,40 +31,40 @@ interface ProjectsListProps {
     showFeatured?: boolean;
 }
 
-export default function ProjectsList({ 
-    limit, 
-    showFeatured = true 
+export default function ProjectsList({
+    limit,
+    showFeatured = true
 }: ProjectsListProps) {
     const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(true)
 
-   useEffect(() => {
-    const fetchProjects = async () => {
-        const { data, error } = await supabase
-            .from("Portfolio")
-            .select("*")
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const { data, error } = await supabase
+                .from("Portfolio")
+                .select("*")
 
-        if (error) {
-            console.error("Error fetching projects:", error)
-            return
+            if (error) {
+                console.error("Error fetching projects:", error)
+                return
+            }
+
+            const shuffledProjects = shuffleArray(data || [])
+            setProjects(shuffledProjects)
+            setLoading(false)
         }
 
-        const shuffledProjects = shuffleArray(data || [])
-        setProjects(shuffledProjects)
-        setLoading(false)
+        fetchProjects()
+    }, [])
+
+    const shuffleArray = (array: Project[]) => {
+        return array
+            .map((value) => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
     }
 
-    fetchProjects()
-}, [])
-
-const shuffleArray = (array: Project[]) => {
-    return array
-        .map((value) => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-}
-
-        if (loading) {
+    if (loading) {
         return (
             <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
                 <div className="text-center">
@@ -86,7 +86,7 @@ const shuffleArray = (array: Project[]) => {
                         ))}
                 </>
             )}
-            
+
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {projects
                     .filter((project) => !project.featured)
@@ -99,7 +99,8 @@ const shuffleArray = (array: Project[]) => {
     );
 }
 
-export function Skills() {
+
+export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
     const [skills, setSkills] = useState<Skill[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -117,6 +118,51 @@ export function Skills() {
         fetchSkills();
     }, []);
 
+    if (isBoxedLayout) {
+        return (
+            <>
+                <div className="text-center my-12">
+                    <h5 className="text-muted-foreground text-sm uppercase tracking-widest">What Skills I Have</h5>
+                    <h2 className="text-3xl md:text-4xl font-bold text-primary font-play">My Experience</h2>
+                </div>
+                <div className="border-2 border-gray-300 my-10 dark:border-[#FFFFFF]/6 rounded-lg p-5 sm:p-10">
+                    <h2 className="text-3xl font-bold text-center sm:text-left">
+                        User experiences
+                    </h2>
+                    <p className="text-[#999999] text-center sm:text-left">
+                        Programs, offices, and experiences that I use
+                    </p>
+
+                    {loading ? (
+                        <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
+                            <div className="text-center">
+                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+                                <p className="text-muted-foreground">Loading Skills...</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+                            {skills.map((item) => (
+                                <article key={item.id} className="flex gap-4 items-center">
+                                    {item.title === "Next.js" ? (
+                                        <div className="bg-white rounded-full flex items-center justify-center">
+                                            <Image width={50} height={50} src={item.img} alt={item.title} priority />
+                                        </div>
+                                    ) : (
+                                        <Image width={50} height={50} src={item.img} alt={item.title} priority />
+                                    )}
+                                    <div>
+                                        <h2 className="text-2xl font-bold">{item.title}</h2>
+                                        <p className="text-[#999999] dark:text-[#FFFFFF]/40">{item.description}</p>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </>
+        );
+    }
     return (
         <>
             <div className="text-center my-12">
@@ -125,7 +171,12 @@ export function Skills() {
             </div>
             <div className="mt-5 max-w-5xl mx-auto">
                 {loading ? (
-                    <p className="text-center text-gray-500">Loading skills...</p>
+                    <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+                            <p className="text-muted-foreground">Loading Skills...</p>
+                        </div>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 px-4 sm:grid-cols-3 lg:grid-cols-4 gap-5">
                         {skills.slice(0, 8).map((item) => (
@@ -135,24 +186,12 @@ export function Skills() {
                             >
                                 {item.title === "Next.js" ? (
                                     <div className="bg-white rounded-full h-fit w-fit flex items-center justify-center">
-                                        <Image
-                                            width={50}
-                                            height={50}
-                                            src={item.img}
-                                            alt={item.title}
-                                            priority
-                                        />
+                                        <Image width={50} height={50} src={item.img} alt={item.title} priority />
                                     </div>
                                 ) : (
-                                    <Image
-                                        width={50}
-                                        height={50}
-                                        src={item.img}
-                                        alt={item.title}
-                                        priority
-                                    />
+                                    <Image width={50} height={50} src={item.img} alt={item.title} priority />
                                 )}
-                                <div className="">
+                                <div>
                                     <h3 className="text-xl font-semibold">{item.title}</h3>
                                     <p className="text-sm text-muted-foreground">{item.description}</p>
                                 </div>
@@ -161,7 +200,10 @@ export function Skills() {
                     </div>
                 )}
                 <Link href="/about">
-                    <button aria-label="all project page" className="border flex justify-center mt-10 mx-auto cursor-pointer border-[#999999] py-1.5 font-medium px-5 rounded-lg items-center gap-2 hover:bg-[#9999]/20">
+                    <button
+                        aria-label="all project page"
+                        className="border flex justify-center mt-10 mx-auto cursor-pointer border-[#999999] py-1.5 font-medium px-5 rounded-lg items-center gap-2 hover:bg-[#9999]/20"
+                    >
                         All Skills <ArrowRight className="text-[#999999]" />
                     </button>
                 </Link>

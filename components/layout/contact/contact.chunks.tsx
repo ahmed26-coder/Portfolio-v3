@@ -35,7 +35,7 @@ export function Contactleft() {
         <div className="flex items-center space-x-4">
           <Mail className="w-6 h-6 text-blue-500" />
           <a
-            href="mailto:ahmadadham330@gmail.com"
+            href="mailto:ahmedadhem330@gmail.com"
             target="_blank"
             className="hover:text-blue-500 text-lg font-medium transition-colors"
           >
