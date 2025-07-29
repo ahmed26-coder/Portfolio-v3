@@ -23,7 +23,7 @@ export async function submitContactForm(formData: {
 
   const isEmailValid = async (email: string) => {
     try {
-      const key = "bafbbb54acbe83839523ed310889b217"
+     const key = process.env.NEXT_PUBLIC_MAILBOXLAYER_KEY;
       const res = await fetch(
         `https://apilayer.net/api/check?access_key=${key}&email=${email}&smtp=1&format=1`
       )
