@@ -6,7 +6,7 @@ import { Contact } from '../home/home.chunks'
 
 export default function page() {
   return (
-    <div>
+    <div className=" container xl:max-w-[1800px] mx-auto">
       <Page />
       <Approach />
       <Learning />
