@@ -112,7 +112,7 @@ export function Learning() {
     <section className="py-12 px-8">
       <div className="container max-w-4xl mx-auto text-center">
         <p className="text-[#666666] mb-2">My Learning Path</p>
-        <h2 className="text-3xl font-bold mb-8 font-play ">How I Started</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 font-play ">How I Started</h2>
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2">
           {learningSteps.map((step, index) => (
@@ -166,7 +166,7 @@ export function Journey() {
 <section className="my-16 max-w-6xl mx-auto px-4">
   <div className="text-center mb-12">
     <p className="text-[#666666] mb-2 ">My Learning Path</p>
-    <h2 className="text-2xl font-bold font-play">My Learning Journey</h2>
+    <h2 className="text-3xl md:text-4xl font-bold font-play">My Learning Journey</h2>
   </div>
   <div className="relative">
     <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-emerald-200" />

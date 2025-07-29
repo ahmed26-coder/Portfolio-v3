@@ -150,7 +150,7 @@ export function FAQs() {
 
 export function Contact() {
   return (
-    <section className="my-16">
+    <section className="my-16 max-w-5xl mx-auto">
       <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg p-8 text-center text-white">
         <h2 className="text-2xl font-bold mb-4">Let&#39;s Connect & Create Together</h2>
         <p className="mb-6 max-w-2xl mx-auto">

@@ -1,7 +1,7 @@
 // app/layout.tsx
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playwrite_AU_QLD } from "next/font/google";
+import { Geist, Geist_Mono, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
@@ -14,10 +14,12 @@ const geistSans = Geist({
   subsets: ["latin"]
 });
 
-const playwriteQLD = Playwrite_AU_QLD({
-  variable: "--font-playwrite-au-qld",
-  weight: ["300", "400"], 
+const robotoSlab = Roboto_Slab({
+  variable: "--font-roboto-slab",
+  weight: ["300", "400"],
+  subsets: ["latin"],
 });
+
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -67,7 +69,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={` relative bg-grid dark:.dark .bg-grid ${geistSans.variable} ${playwriteQLD.variable} ${geistMono.variable}`}>
+      <body className={` relative bg-grid dark:.dark .bg-grid ${geistSans.variable} ${robotoSlab.variable} ${geistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="lg:flex min-h-screen">
             <div className="lg:flex">

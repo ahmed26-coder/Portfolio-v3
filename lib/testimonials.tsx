@@ -56,7 +56,7 @@ export function TestimonialsCarousel() {
     >
       <div className="text-center mb-12">
         <p className="text-[#666666] mb-2">What They Say</p>
-        <h2 className="text-2xl font-bold font-play">Clients’ Testimonials</h2>
+        <h2 className="text-3xl md:text-4xl font-bold font-play">Clients’ Testimonials</h2>
       </div>
       <CarouselContent>
         {testimonials.map((testimonial) => (

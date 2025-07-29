@@ -18,7 +18,7 @@ export function Focus() {
     <section className="my-16 mx-10">
       <div className=" mx-auto items-center text-center mt-10">
         <p className="text-[#666666]">What I’m currently improving</p>
-        <h2 className="text-2xl font-bold mb-8 font-play">My Development Focus</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 font-play">My Development Focus</h2>
       </div>
       <div className="grid gap-6 md:grid-cols-3">
         <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-600 dark:hover:border-emerald-200 rounded-lg p-6 hover:border-emerald-200 transition-colors">

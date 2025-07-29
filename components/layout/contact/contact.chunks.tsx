@@ -7,7 +7,7 @@ function Contact() {
       <div className="xl:max-w-[1800px] mx-auto ">
         <div className="text-center mb-5 sm:mb-3 lg:mb-10">
           <h5 className="text-gray-500 text-lg">Get In Touch</h5>
-          <h2 className="text-3xl font-bold font-play ">Contact Me</h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-play ">Contact Me</h2>
         </div>
         <ContactSection />
       </div>
