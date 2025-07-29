@@ -109,14 +109,16 @@ export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
             const { data, error } = await supabase.from("Skills").select("*");
             if (error) {
                 console.error("Error fetching skills:", error.message);
-            } else {
-                setSkills(data);
+            } else if (data) {
+                const shuffled = data.sort(() => Math.random() - 0.5);
+                setSkills(shuffled);
             }
             setLoading(false);
         };
 
         fetchSkills();
     }, []);
+
 
     if (isBoxedLayout) {
         return (
