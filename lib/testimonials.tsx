@@ -66,8 +66,8 @@ export function TestimonialsCarousel() {
           >
             <div className="p-4 pb-8">
               <Card className="h-full dark:bg-zinc-900">
-                <CardContent className="p-6 py-2 flex flex-col justify-between h-full">
-                  <p className="text-sm">
+                <CardContent className="p-6 py-1 flex flex-col justify-between h-full min-h-60">
+                  <p className="text-base font-medium">
                     {testimonial.content}
                   </p>
                   <div className="flex items-center gap-1 text-yellow-500 text-base">

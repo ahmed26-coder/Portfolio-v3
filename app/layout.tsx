@@ -46,11 +46,11 @@ export const metadata: Metadata = {
     follow: true
   },
   openGraph: {
-    url: "https://portfolio-ahmad-adham.vercel.app/",
+    url: "https://portfolio-ahmad-developer.vercel.app/",
     siteName: "Ahmed's Portfolio",
     images: [
       {
-        url: "/Screenshot 2025-04-12 194828.webp",
+        url: "/logome6-removebg-preview.webp",
         width: 1200,
         height: 630,
         alt: "Ahmed Portfolio Preview"

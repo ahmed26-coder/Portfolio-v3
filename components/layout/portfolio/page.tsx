@@ -4,7 +4,7 @@ import Topportfolio, { Focus } from './portfolio.chunks'
 
 export default function page() {
   return (
-      <div className="max-w-6xl mt-25 lg:mt-0 w-full">
+      <div className="max-w-6xl mx-auto items-center mt-25 lg:mt-0 w-full">
         <Focus />
         <Topportfolio />
         <Portfolio />

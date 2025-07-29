@@ -283,7 +283,7 @@ export default function Sidebar() {
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: -350, opacity: 0 }}
                             transition={{ duration: 0.35, ease: "easeInOut" }}
-                            className="z-50 lg:hidden fixed top-0 left-0 w-[220px] min-h-screen bg-gray-100 dark:bg-black p-4 shadow-xl"
+                            className="z-50 lg:hidden fixed top-0 left-0 w-[320px] min-h-screen bg-gray-100 dark:bg-black p-4 shadow-xl"
                         >
                             <div className="flex flex-col items-center mb-4">
                                 <Image
