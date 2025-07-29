@@ -1,4 +1,4 @@
-import Page from '@/components/layout/home/page'
+import Page from '@/components/layout/about/page'
 import React from 'react'
 
 export default function page() {
