@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { useLocale } from "next-intl"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -51,13 +52,17 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
+  const locale = useLocale()
+
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
+      direction: locale === "ar" ? "rtl" : "ltr", // ✅ ضبط الاتجاه هنا
     },
     plugins
   )
+
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
 
@@ -119,6 +124,7 @@ function Carousel({
       }}
     >
       <div
+        dir={locale === "ar" ? "rtl" : "ltr"} // ✅ ضبط الاتجاه في الـ DOM
         onKeyDownCapture={handleKeyDown}
         className={cn("relative", className)}
         role="region"
@@ -230,7 +236,6 @@ function CarouselNext({
     </Button>
   )
 }
-
 
 export {
   type CarouselApi,

@@ -1,5 +1,7 @@
 "use client"
 
+import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabase"
 import FeaturedProjectCard from "@/lib/featuredprojectcard"
@@ -18,7 +20,10 @@ type Skill = {
 interface Project {
     id: string
     title: string
-    disc: string
+    disc: {
+  en: string
+  ar: string
+}
     image: string
     demo?: string
     githup?: string
@@ -37,7 +42,7 @@ export default function ProjectsList({
 }: ProjectsListProps) {
     const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(true)
-
+    const t = useTranslations('HomePage');
     useEffect(() => {
         const fetchProjects = async () => {
             const { data, error } = await supabase
@@ -69,7 +74,7 @@ export default function ProjectsList({
             <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-                    <p className="text-muted-foreground">Loading project...</p>
+                    <p className="text-muted-foreground">{t('Loading2')}</p>
                 </div>
             </div>
         )
@@ -103,7 +108,8 @@ export default function ProjectsList({
 export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
     const [skills, setSkills] = useState<Skill[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
     useEffect(() => {
         const fetchSkills = async () => {
             const { data, error } = await supabase.from("Skills").select("*");
@@ -124,22 +130,22 @@ export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
         return (
             <>
                 <div className="text-center my-12">
-                    <h5 className="text-muted-foreground text-sm uppercase tracking-widest">What Skills I Have</h5>
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary font-play">My Experience</h2>
+                    <h5 className="text-muted-foreground text-sm uppercase tracking-widest">{t('skills')}</h5>
+                    <h2 className="text-3xl md:text-4xl font-bold text-primary font-play">{t('experience')}</h2>
                 </div>
                 <div className="border-2 border-gray-300 my-10 dark:border-[#FFFFFF]/6 rounded-lg p-5 sm:p-10">
-                    <h2 className="text-3xl font-bold text-center sm:text-left">
-                        User experiences
+                    <h2 className="text-3xl font-bold text-center sm:text-start">
+                        {t('User')}
                     </h2>
-                    <p className="text-[#999999] text-center sm:text-left">
-                        Programs, offices, and experiences that I use
+                    <p className="text-[#999999] text-center sm:text-start">
+                        {t('Programs')}
                     </p>
 
                     {loading ? (
                         <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
                             <div className="text-center">
                                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-                                <p className="text-muted-foreground">Loading Skills...</p>
+                                <p className="text-muted-foreground">{t('Loading1')}</p>
                             </div>
                         </div>
                     ) : (
@@ -168,15 +174,15 @@ export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
     return (
         <>
             <div className="text-center my-12">
-                <h5 className="text-muted-foreground text-sm uppercase tracking-widest">What Skills I Have</h5>
-                <h2 className="text-3xl md:text-4xl font-bold text-primary font-play">My Experience</h2>
+                <h5 className="text-muted-foreground text-sm uppercase tracking-widest">{t('skills')}</h5>
+                <h2 className="text-3xl md:text-4xl font-bold text-primary font-play">{t('experience')}</h2>
             </div>
             <div className="mt-5 max-w-5xl mx-auto">
                 {loading ? (
                     <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
                         <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-                            <p className="text-muted-foreground">Loading Skills...</p>
+                            <p className="text-muted-foreground">{t('Loading1')}</p>
                         </div>
                     </div>
                 ) : (
@@ -206,10 +212,38 @@ export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
                         aria-label="all project page"
                         className="border flex justify-center mt-10 mx-auto cursor-pointer border-[#999999] py-1.5 font-medium px-5 rounded-lg items-center gap-2 hover:bg-[#9999]/20"
                     >
-                        All Skills <ArrowRight className="text-[#999999]" />
+                        {t('button3')}
+                        <ArrowRight
+                            className={`text-[#999999] transform transition-transform duration-300 ${locale === 'ar' ? 'rotate-180' : ''
+                                }`}
+                        />
                     </button>
                 </Link>
             </div>
         </>
     );
+}
+
+
+export function Project() {
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
+    return (
+        <section className="container mx-auto py-10 w-full xl:max-w-[1800px]">
+            <div className=" mx-auto items-center text-center mt-10">
+                <p className=" text-[#666666]">{t("workproject")}</p>
+                <h2 className="text-5xl font-bold font-play">{t("project")}</h2>
+            </div>
+            <ProjectsList limit={3} />
+            <Link href="/portfolio">
+                <button aria-label="all project page" className="border flex justify-center mx-auto cursor-pointer border-[#999999] py-1.5 font-medium px-5 rounded-lg items-center gap-2 hover:bg-[#9999]/20">
+                    {t("button4")}
+                    <ArrowRight
+                        className={`text-[#999999] transform transition-transform duration-300 ${locale === 'ar' ? 'rotate-180' : ''
+                            }`}
+                    />
+                </button>
+            </Link>
+        </section>
+    )
 }

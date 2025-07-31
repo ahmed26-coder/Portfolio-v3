@@ -1,12 +1,13 @@
 "use client"
 
+import { useTranslations } from 'next-intl';
 import { useState, useTransition } from "react"
 import { toast } from "sonner"
-import { Send } from "lucide-react"
+import { Github, Linkedin, Mail, Send } from "lucide-react"
 import { submitContactForm } from "./contact.action"
-import { Contactleft } from "./contact.chunks"
 
 export default function ContactSection() {
+    const t = useTranslations('ContactPage');
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -38,12 +39,12 @@ export default function ContactSection() {
         const phoneRegex = /^\+?\d{7,15}$/
 
         if (!nameRegex.test(formData.name.trim())) {
-            toast.error("Please enter a real name consisting of at least one first name and one last name.")
+            toast.error(t('nameRegex'))
             return
         }
 
         if (!phoneRegex.test(formData.phone.trim())) {
-            toast.error("Please enter a valid phone number (only digits, optionally starting with +).")
+            toast.error(t('phoneRegex'))
             return
         }
 
@@ -53,10 +54,10 @@ export default function ContactSection() {
             submitContactForm(formData).then((res) => {
                 setIsLoading(false)
                 if (res.success) {
-                    toast.success("Message sent successfully!")
+                    toast.success(t('success'))
                     setFormData({ name: "", email: "", phone: "", message: "" })
                 } else {
-                    toast.error(res.error || "Something went wrong!")
+                    toast.error(t('error'))
                 }
             })
         })
@@ -69,19 +70,61 @@ export default function ContactSection() {
                     <div className="mx-auto">
                         <div className="rounded-2xl sm:p-4 lg:gap-8">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                <Contactleft />
+                                <div className="space-y-5 text-start sm:space-y-8">
+                                    <h1 className="text-4xl  font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                                        {t('let')}
+                                    </h1>
+                                    <p className="text-xl font-medium">
+                                        {t('disc')}
+                                    </p>
+
+                                    <div className="space-y-4">
+                                        <div className="flex items-center space-x-4">
+                                            <Mail className="w-6 h-6 text-blue-500" />
+                                            <a
+                                                href="mailto:ahmedadhem330@gmail.com"
+                                                target="_blank"
+                                                className="hover:text-blue-500 text-lg font-medium transition-colors"
+                                            >
+                                                ahmedadhem330@gmail.com
+                                            </a>
+                                        </div>
+                                        <div className="flex items-center space-x-4">
+                                            <Github className="w-6 h-6 text-blue-500" />
+                                            <a
+                                                href="https://github.com/ahmed26-coder"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="hover:text-blue-500 text-lg font-medium transition-colors"
+                                            >
+                                                github.com
+                                            </a>
+                                        </div>
+                                        <div className="flex items-center space-x-4">
+                                            <Linkedin className="w-6 h-6 text-blue-500" />
+                                            <a
+                                                href="https://www.linkedin.com/in/ahmed-adham-479334331"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="hover:text-blue-500 text-lg font-medium transition-colors"
+                                            >
+                                                linkedin.com
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                         <div>
                                             <label htmlFor="name" className="block text-sm font-medium mb-1">
-                                                Name
+                                                {t('name')}
                                             </label>
                                             <input
                                                 type="text"
                                                 id="name"
                                                 name="name"
                                                 value={formData.name}
-                                                placeholder="Full Name"
+                                                placeholder={t('titlename')}
                                                 onChange={handleChange}
                                                 disabled={isLoading || isPending}
                                                 className="w-full px-4 py-2 rounded-lg border bg-gray-100 dark:bg-black/30 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 outline-none transition-colors"
@@ -90,14 +133,14 @@ export default function ContactSection() {
                                         </div>
                                         <div>
                                             <label htmlFor="email" className="block text-sm font-medium mb-1">
-                                                Email
+                                                {t('email')}
                                             </label>
                                             <input
                                                 type="email"
                                                 id="email"
                                                 name="email"
                                                 value={formData.email}
-                                                placeholder="Your Email"
+                                                placeholder={t('titleemail')}
                                                 onChange={handleChange}
                                                 disabled={isLoading || isPending}
                                                 className="w-full px-4 py-2 rounded-lg border bg-gray-100 dark:bg-black/30 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 outline-none transition-colors"
@@ -107,14 +150,14 @@ export default function ContactSection() {
                                     </div>
                                     <div>
                                         <label htmlFor="phone" className="block text-sm font-medium mb-1">
-                                            Phone
+                                            {t('phone')}
                                         </label>
                                         <input
                                             type="tel"
                                             id="phone"
                                             name="phone"
                                             value={formData.phone}
-                                            placeholder="Your Phone"
+                                            placeholder={t('titlephone')}
                                             onChange={handleChange}
                                             disabled={isLoading || isPending}
                                             pattern="[0-9+]*"
@@ -125,13 +168,13 @@ export default function ContactSection() {
                                     </div>
                                     <div>
                                         <label htmlFor="message" className="block text-sm font-medium mb-1">
-                                            Message
+                                            {t('Message')}
                                         </label>
                                         <textarea
                                             id="message"
                                             name="message"
                                             value={formData.message}
-                                            placeholder="Enter Your Message"
+                                            placeholder={t('titleMessage')}
                                             onChange={handleChange}
                                             disabled={isLoading || isPending}
                                             rows={8}
@@ -142,11 +185,10 @@ export default function ContactSection() {
                                     <button
                                         type="submit"
                                         aria-label="Send Message"
-                                        className={`w-full flex items-center justify-center space-x-2 px-6 py-2 text-white rounded-lg transition-opacity ${
-                                            isLoading || isPending
+                                        className={`w-full flex items-center justify-center space-x-2 px-6 py-2 text-white rounded-lg transition-opacity ${isLoading || isPending
                                                 ? "bg-gray-400 cursor-not-allowed"
                                                 : "bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90"
-                                        }`}
+                                            }`}
                                         disabled={isLoading || isPending}
                                     >
                                         {isLoading || isPending ? (
@@ -173,7 +215,7 @@ export default function ContactSection() {
                                         ) : (
                                             <>
                                                 <Send className="w-5 h-5" />
-                                                <span>Send Message</span>
+                                                <span>{t('button')}</span>
                                             </>
                                         )}
                                     </button>

@@ -1,0 +1,295 @@
+{
+    "HomePage": {
+        "work": "Available For Work",
+        "title": "Hello! I'm Ahmad Adham ",
+        "type": "Front-end Developer | React & Next.js Expert",
+        "location": "Egypt Cairo",
+        "about": "As a passionate Front-end Developer, I am eager to create visually captivating and user-friendly designs. I may be at the beginning of my journey, but I am dedicated to learning, growing, and building amazing experiences. Let's collaborate and make something great together!",
+        "button1": "about Me",
+        "button2": "Download Cv",
+        "skills": "What Skills I Have",
+        "experience": "My Experience",
+        "User": "User experiences",
+        "Programs": "Programs, offices, and experiences that I use",
+        "Loading1": "Loading Skills...",
+        "button3": "All Skills",
+        "Offer": "What I Offer",
+        "services": "Services",
+        "service": {
+            "0": {
+              "icon": "Paintbrush",
+              "color": "text-pink-500",
+              "title": "UI/UX Design",
+              "description": "I design responsive and modern user interfaces that provide a smooth user experience across all devices."
+            },
+           "1": {
+              "icon": "Rocket",
+              "color": "text-green-500",
+              "title": "Performance Optimization",
+              "description": "I build fast and optimized websites using best practices like lazy loading, caching, and image optimization."
+            },
+           "2": {
+              "icon": "Code",
+              "color": "text-yellow-500",
+              "title": "Clean & Reusable Code",
+              "description": "I write clean, reusable, and well-structured code using React, Tailwind CSS, and modern development tools."
+            }
+        },
+        "workproject": "My Recent Work",
+        "project": "Projects",
+        "button4": "All Project",
+          "live": "Live Demo",
+  "source": "Source Code",
+  "View": "View Details",
+        "Loading2": "Loading Project...",
+         "testimonials": [
+  {
+    "name": "Sarah Johnson",
+    "role": "Marketing Director",
+    "company": "TechCorp",
+    "content": "Working with this designer was an absolute pleasure. They delivered a stunning website that perfectly captured our brand identity. Their attention to detail and creativity exceeded our expectations.",
+    "rating": 5
+  },
+  {
+    "name": "Michael Chen",
+    "role": "Founder",
+    "company": "StartupX",
+    "content": "I hired this freelancer for our logo design and brand identity. The results were outstanding! They took the time to understand our vision and translated it into a perfect visual representation of our brand.",
+    "rating": 5
+  },
+  {
+    "name": "Emily Rodriguez",
+    "role": "E-commerce Manager",
+    "company": "Fashion Boutique",
+    "content": "Our online store needed a complete redesign, and this developer delivered beyond our expectations. The site is not only beautiful but also performs exceptionally well, leading to increased sales.",
+    "rating": 5
+  },
+  {
+    "name": "David Thompson",
+    "role": "Creative Director",
+    "company": "Design Studio",
+    "content": "As a fellow designer, I have high standards. This freelancer met and exceeded them. Their technical skills combined with creative vision make them stand out in the industry.",
+    "rating": 5
+  }
+],
+        "say": "What They Say",
+        "clients": "Clients’ Testimonials",
+        "answers": "Answers to common questions about my skills and work",
+        "FAQs": "Frequently Asked Questions (FAQs)",
+         "faqs": [
+  {
+    "id": "q1",
+    "question": "What core skills do I have?",
+    "answer": "I'm skilled in HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, and I understand the basics of TypeScript."
+  },
+  {
+    "id": "q2",
+    "question": "Can I build a professional website from scratch?",
+    "answer": "Yes, I can build responsive and modern designs using Front-End technologies, focusing on performance and user experience."
+  },
+  {
+    "id": "q3",
+    "question": "Am I able to work with APIs?",
+    "answer": "Yes, I have experience fetching data from APIs and integrating it into websites using React and Next.js."
+  },
+  {
+    "id": "q4",
+    "question": "Can I edit or improve an existing website?",
+    "answer": "Absolutely! I can analyze the existing codebase and enhance it or add new features."
+  }
+],
+    "Together": "Let's Connect & Create Together",
+    "dish": "I'm always looking for opportunities to collaborate, learn, and create. Whether you have a project in mind or just want to connect, I'd love to hear from you!",
+    "button5": "Get in Touch",
+    "button6": "View My GitHub"
+    },
+
+
+
+
+    "AboutPage": {
+        "title": "Hello! I'm Ahmad Adham ",
+        "type": "Front-end Developer | React & Next.js Expert",
+        "about": "As a passionate Front-end Developer, I am eager to create visually captivating and user-friendly designs. I may be at the beginning of my journey, but I am dedicated to learning, growing, and building amazing experiences. Let's collaborate and make something great together!",
+        "button1": "Download Cv",
+        "skills": "What Skills I Have",
+        "experience": "My Experience",
+        "just": "More than just code",
+        "Approach": "My Approach",
+        "approachItems": {
+   "0": {
+      "text": "I focus on writing clean and maintainable code.",
+      "icon": "Lightbulb",
+      "color":"text-yellow-500"
+    },
+    "1":{
+      "text": "I'm always learning and improving my skills.",
+      "icon": "Brain",
+      "color":"text-purple-500"
+    },
+   "2": {
+      "text": "I value communication and teamwork.",
+      "icon": "Users",
+      "color":"text-blue-500"
+    },
+   "3": {
+      "text": "I care about responsiveness and performance.",
+      "icon": "Smartphone",
+      "color":"text-green-500"
+    }
+  },
+  "Learning": "My Learning Path",
+  "how": "How I Started",
+"learningSteps": {
+  "0":{
+    "title": "First Steps",
+    "description": "Started learning the fundamentals with C++, OOP, and algorithms.",
+    "icon": "BookOpen",
+    "color":"text-purple-500"
+  },
+  "1":{
+    "title": "My First Project",
+    "description": "Built my first complete project using only React.",
+    "icon": "Code",
+    "color": "text-blue-500"
+  },
+  "2":{
+    "title": "Exploring the Web",
+    "description": "Learned HTML and CSS to structure and style websites.",
+    "icon": "Rocket",
+    "color": "text-yellow-500"
+  },
+  "3":{
+    "title": "Moving Forward",
+    "description": "Now working with Next.js, Tailwind, Supabase and more.",
+    "icon": "TrendingUp",
+    "color": "text-green-500"
+  }
+},
+  "path": "My Learning Path",
+  "journey": "My Learning Journey",
+  "steps": {
+  "0":{
+    "date": "August 2024",
+    "title": "Beginning My Coding Journey",
+    "desc": "Started learning HTML, CSS, and JavaScript fundamentals through online courses and tutorials. Built my first static websites and began to understand the basics of web development.",
+    "badges": ["HTML", "CSS", "JavaScript Basics"]
+  },
+  "1":{
+    "date": "November 2024",
+    "title": "Diving into React",
+    "desc": "After building a foundation with vanilla JavaScript, I began learning React. Started with the core concepts like components, props, and state, then moved on to hooks and more advanced patterns.",
+    "badges": ["React", "Components", "Hooks"]
+  },
+  "2":{
+    "date": "April 2025",
+    "title": "Exploring Next.js & Tailwind",
+    "desc": "Expanded my skills to include Next.js for its server-side rendering capabilities and Tailwind CSS for rapid UI development. Started building more complex projects with these technologies.",
+    "badges": ["Next.js", "Tailwind CSS", "Responsive Design"]
+  },
+  "3":{
+    "date": "Present",
+    "title": "Continuous Learning & Building",
+    "desc": "Currently focused on deepening my understanding of React and Next.js while exploring TypeScript and state management solutions. Building projects to apply what I’ve learned and discover new challenges.",
+    "badges": ["TypeScript", "State Management", "Project Building"]
+  }
+}
+    },
+
+
+
+    "PortfolioPage": {
+      "workproject": "My Recent Work",
+      "project": "Projects",
+      "improving": "What I’m currently improving My",
+      "development": "Development Focus",
+      "focusData": {
+ "0": {
+    "title": "Frontend Development",
+    "desc": "Building responsive, accessible, and visually appealing user interfaces using modern web technologies.",
+    "icon": "code",
+    "skills": ["React", "Next.js", "Tailwind CSS"]
+  },
+ "1": {
+    "title": "UI/UX Principles",
+    "desc": "Learning to create intuitive user experiences with thoughtful design patterns and accessibility in mind.",
+    "icon": "zap",
+    "skills": ["Responsive Design", "Accessibility", "User-Centered Design"]
+  },
+ "2": {
+    "title": "Problem Solving",
+    "desc": "Developing my analytical thinking and debugging skills to tackle complex coding challenges effectively.",
+    "icon": "lightbulb",
+    "skills": ["Algorithms", "Data Structures", "Debugging"]
+  }
+      }
+    },
+
+
+
+
+"PortfolioPageid": {
+  "Loading": "Loading project...",
+  "not": "Project not found",
+  "back": "Back to Projects",
+  "type": "Frontend Developer",
+  "live": "Live Demo",
+  "source": "Source Code",
+  "Gallery": "Project Gallery",
+  "Technologies": "Technologies Used",
+  "overview": "Overview",
+  "challenge": "Challenge",
+  "solution": "Solution",
+  "outcome": "Outcome",
+  "outtype": "After building and deploying the project, I noticed a significant improvement in my development speed and problem-solving abilities. The application became a practical proof of concept that helped me validate core concepts such as state management, performance optimization, and user experience.",
+  "related": "Related Projects"
+},
+
+
+
+
+"ContactPage": {
+  "git": "Get In Touch",
+  "me": "Contact Me",
+  "let": "Let's Connect",
+  "disc": "I'm always thrilled to dive into exciting new projects, explore bold and creative ideas, and seize incredible opportunities to collaborate and bring your unique visions to life in the most impactful way possible.",
+  "phoneRegex": "Please enter a valid phone number (only digits, optionally starting with +).",
+  "nameRegex": "Please enter a real name consisting of at least one first name and one last name.",
+  "success": "Message sent successfully!",
+  "error": "Something went wrong!",
+  "name": "Name",
+  "titlename": "Full Name",
+  "email": "Email",
+  "titleemail": "Your Email",
+  "phone": "Phone",
+  "titlephone": "Your Phone",
+  "Message": "Message",
+  "titleMessage": "Enter Your Message",
+  "button": "Send Message",
+  "Error": "Error verifying email:"
+},
+
+"nav": {
+   "menu": {
+    "Home": "Home",
+    "About": "About",
+    "Portfolio": "Portfolio",
+    "Contact": "Contact"
+  },
+  "name": "Ahmad Adham",
+  "jobTitle1": "Front-end Developer",
+  "jobTitle2": "Web Designer"
+},
+
+"footer": {
+    "name": "Ahmed Adham",
+    "role": "Front-End Developer",
+    "designed": "Designed & Developed by"
+},
+
+"notFound": {
+  "title": "Page Not Found",
+  "description": "Sorry, the page you’re looking for doesn’t exist.",
+  "button": "Go Back Home"
+}
+}

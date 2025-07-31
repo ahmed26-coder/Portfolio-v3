@@ -1,6 +1,8 @@
 import Image from "next/image";
+import {getTranslations} from 'next-intl/server';
 
-const Footer = () => {
+export async function Footer () {
+    const t = await getTranslations('footer');
   const socialLinks = [
     {
       href: "https://wa.me/201016626452",
@@ -32,14 +34,14 @@ const Footer = () => {
           <Image src="/logome6-removebg-preview.webp" alt="Logo" width={30} height={30} priority={true} />
           &copy;2025 {" "}
           <span className="text-black dark:text-white text-base font-bold">
-            <span className="font-play">Ahmed Adham</span><span className="dark:text-[#FFFFFF]/40 text-[#999999]">. Front-End Developer</span>
+            <span className="font-play">{t('name')}</span><span className="dark:text-[#FFFFFF]/40 text-[#999999]">.{t('role')}</span>
           </span>
         </small>
 
         <div className="sm:flex hidden flex-col lg:flex-row gap-2 lg:gap-10 mt-2 sm:mt-0">
           <small className="text-black dark:text-white text-base font-bold">
-            <span className="dark:text-[#FFFFFF]/40 text-[#999999] font-normal">Designed & Developed by </span>
-            Ahmed Adham
+            <span className="dark:text-[#FFFFFF]/40 text-[#999999] font-normal">{t('designed')}</span>
+            {t('name')}
           </small>
           <div className=" flex items-center sm:hidden lg:flex gap-4 text-2xl sm:mt-0 mt-3 sm:mx-0 mx-auto">
             {socialLinks.map((item, index) => (
@@ -75,4 +77,3 @@ const Footer = () => {
   );
 };
 
-export default Footer;

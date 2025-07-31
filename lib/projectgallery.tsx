@@ -1,5 +1,6 @@
 "use client"
 
+import {useTranslations} from 'next-intl';
 import { useState } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -15,13 +16,13 @@ interface GalleryProps {
   title: string
 }
 
-export default function ProjectGallery({ images, title= "Project Image" }: GalleryProps) {
+export default function ProjectGallery({ images }: GalleryProps) {
   const formattedImages: ProjectImage[] = images
     .filter((img) => !!img)
     .map((img, i) =>
       typeof img === "string" ? { src: img, alt: `Image ${i + 1}` } : img
     )
-
+const t = useTranslations('PortfolioPageid');
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const prevImage = () => {
@@ -40,7 +41,7 @@ export default function ProjectGallery({ images, title= "Project Image" }: Galle
 
   return (
     <div className="mb-16 max-w-4xl mx-auto">
-      <h2 className="text-2xl text-center font-bold mb-6">Project Gallery</h2>
+      <h2 className="text-2xl text-center font-bold mb-6">{t('Gallery')}</h2>
       <div className="relative mb-6">
         <div className="relative aspect-video w-full overflow-hidden rounded-xl">
           <Image

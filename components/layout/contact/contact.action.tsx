@@ -2,6 +2,7 @@
 "use server"
 import { createClient } from "@/lib/supabase/server"
 import { z } from "zod"
+import {getTranslations} from 'next-intl/server';
 
 const schema = z.object({
   name: z.string().min(3),
@@ -20,7 +21,7 @@ export async function submitContactForm(formData: {
   if (!parsed.success) {
     return { success: false, error: "Invalid data." }
   }
-
+  const t = await getTranslations('ContactPage');
   const isEmailValid = async (email: string) => {
     try {
      const key = process.env.NEXT_PUBLIC_MAILBOXLAYER_KEY;
@@ -30,7 +31,7 @@ export async function submitContactForm(formData: {
       const data = await res.json()
       return data.smtp_check && data.mx_found && data.format_valid
     } catch (err) {
-      console.error("Error verifying email:", err)
+      console.error(t('Error'), err)
       return false
     }
   }

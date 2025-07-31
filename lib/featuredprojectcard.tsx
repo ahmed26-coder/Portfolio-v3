@@ -1,4 +1,5 @@
 "use client"
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -8,7 +9,10 @@ import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
 interface FeaturedProjectCardProps {
   title: string
   id: string
-  disc: string
+disc: {
+  en: string
+  ar: string
+}
   image: string
   demo?: string
   githup?: string
@@ -25,7 +29,8 @@ export default function FeaturedProjectCard({
   techniques = [],
 }: FeaturedProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false)
-
+  const t = useTranslations('HomePage');
+  const locale = useLocale() as 'en' | 'ar';
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -54,7 +59,7 @@ export default function FeaturedProjectCard({
           <div className="space-y-4">
             <div className="space-y-2">
               <h3 className="text-2xl font-bold tracking-tight">{title}</h3>
-              <p className="text-zinc-600 dark:text-zinc-300">{disc}</p>
+              <p className="text-zinc-600 dark:text-zinc-300">{disc[locale]}</p>
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -69,12 +74,12 @@ export default function FeaturedProjectCard({
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap justify-between gap-3">
             {demo && (
               <button>
                 <Link href={demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                   <ExternalLink className="h-4 w-4" />
-                  Live Demo
+                  {t('View')}
                 </Link>
               </button>
             )}
@@ -82,16 +87,16 @@ export default function FeaturedProjectCard({
               <button>
                 <Link href={githup} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                   <Github className="h-4 w-4" />
-                  Source Code
+                  {t('source')}
                 </Link>
               </button>
             )}
-            <button className="ml-auto group" >
+            <button className="ms-auto group" >
               <Link
                 href={`/portfolio/${id}`}
                 className="flex items-center gap-1"
               >
-                View Project
+                {t('View')}
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
             </button>

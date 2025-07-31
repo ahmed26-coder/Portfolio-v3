@@ -1,8 +1,13 @@
+// next.config.ts
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['xnuaqhaffihsznkcddiy.supabase.co'], // ← أضف الدومين هنا
+    domains: ['xnuaqhaffihsznkcddiy.supabase.co'],
   },
-}
+};
 
-module.exports = nextConfig
+export default withNextIntl(nextConfig);

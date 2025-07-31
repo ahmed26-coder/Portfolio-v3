@@ -1,34 +1,32 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { getTranslations } from 'next-intl/server';
 import ContactSection from "./contact.client";
 
-function Contact() {
+export async function Contact() {
+  const t = await getTranslations('ContactPage');
   return (
     <section className=" relative min-h-screen pt-[25%] sm:pt-[13%] lg:pt-[5%] pb-[10%] sm:pb-0 sm:py-[5%] w-full ">
       <div className="xl:max-w-[1800px] mx-auto ">
         <div className="text-center mb-5 sm:mb-3 lg:mb-10">
-          <h5 className="text-gray-500 text-lg">Get In Touch</h5>
-          <h2 className="text-3xl md:text-4xl font-bold font-play ">Contact Me</h2>
+          <h5 className="text-gray-500 text-lg">{t('git')}</h5>
+          <h2 className="text-3xl md:text-4xl font-bold font-play ">{t('me')}</h2>
         </div>
         <ContactSection />
       </div>
     </section>
   );
-}
-
-export default Contact;
+};
 
 
-export function Contactleft() {
+export async function Contactleft() {
+  const t = await getTranslations('ContactPage');
   return (
     <div className="space-y-5 sm:space-y-8">
       <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-        Let&#39;s Connect
+        {t('let')}
       </h1>
       <p className="text-xl font-medium">
-        I&#39;m always thrilled to dive into exciting new projects,
-        explore bold and creative ideas, and seize incredible
-        opportunities to collaborate and bring your unique visions to
-        life in the most impactful way possible.
+        {t('disc')}
       </p>
 
       <div className="space-y-4">

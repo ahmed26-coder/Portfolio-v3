@@ -1,7 +1,7 @@
 import React from 'react'
-import Contact from './contact.chunks'
 import { FAQs } from '../home/home.chunks'
 import DecorativeSeparator from '@/lib/decorative-separator'
+import { Contact } from './contact.chunks'
 
 export default function page() {
   return (

@@ -1,5 +1,5 @@
 "use client"
-
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,7 +9,10 @@ import { ExternalLink, Github, ArrowRight } from "lucide-react"
 interface ProjectCardProps {
   title: string
   id: string
-  disc: string
+  disc: {
+    en: string
+    ar: string
+  }
   image: string
   demo?: string
   githup?: string
@@ -25,7 +28,9 @@ export default function ProjectCard({
   githup,
   techniques = [],
 }: ProjectCardProps) {
+  const t = useTranslations('HomePage');
   const [isHovered, setIsHovered] = useState(false)
+  const locale = useLocale() as 'en' | 'ar';
 
   return (
     <motion.div
@@ -37,7 +42,7 @@ export default function ProjectCard({
       onHoverEnd={() => setIsHovered(false)}
       className="h-full"
     >
-      <div className="overflow-hidden rounded-md border dark:hover:shadow-blue-500 dark:hover:border-blue-500 border-zinc-200 bg-white h-full transition-all duration-300 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex flex-col h-full overflow-hidden rounded-md border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 transition-all duration-300 hover:shadow-lg dark:hover:shadow-blue-500 dark:hover:border-blue-500">
         <div className="relative overflow-hidden">
           <div className="aspect-video p-2 w-full overflow-hidden">
             <Image
@@ -52,49 +57,48 @@ export default function ProjectCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100 flex items-end p-4">
             <div className="flex gap-3">
               {demo && (
-                <button>
-                  <Link href={demo} target="_blank" rel="noopener noreferrer" className="flex bg-white py-0.5 px-2 rounded-full text-black items-center gap-1">
+                <Link href={demo} target="_blank" rel="noopener noreferrer">
+                  <div className="flex bg-white py-0.5 px-2 rounded-full text-black items-center gap-1">
                     <ExternalLink className="h-4 w-4" />
-                    Live Demo
-                  </Link>
-                </button>
+                    {t('live')}
+                  </div>
+                </Link>
               )}
               {githup && (
-                <button>
-                  <Link href={githup} target="_blank" rel="noopener noreferrer" className="flex bg-white py-0.5 px-2 rounded-full text-black items-center gap-1">
+                <Link href={githup} target="_blank" rel="noopener noreferrer">
+                  <div className="flex bg-white py-0.5 px-2 rounded-full text-black items-center gap-1">
                     <Github className="h-4 w-4" />
-                    Source Code
-                  </Link>
-                </button>
+                    {t('source')}
+                  </div>
+                </Link>
               )}
             </div>
           </div>
         </div>
-        <div className="p-4 pb-2">
-          <div className="text-xl font-bold tracking-tight">{title}</div>
-        </div>
-        <div className="p-4 pt-2">
-          <div className="line-clamp-3 text-zinc-600 dark:text-zinc-300">{disc}</div>
-        </div>
-        <div className="flex flex-col items-start gap-4 p-4 pt-0">
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col flex-1 px-4 pt-4 pb-4">
+          <div>
+            <h3 className="text-xl font-bold tracking-tight">{title}</h3>
+            <p className="line-clamp-3 text-zinc-600 dark:text-zinc-300 mt-1">{disc[locale]}</p>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-4">
             {techniques.map((tech) => (
-              <article
+              <span
                 key={tech}
-                className="bg-zinc-100 text-zinc-800 py-0.5 hover:bg-blue-500 hover:text-white px-3 rounded-full dark:bg-zinc-800 dark:text-zinc-200"
+                className="bg-zinc-100 text-zinc-800 py-0.5 px-3 rounded-full text-sm hover:bg-blue-500 hover:text-white dark:bg-zinc-800 dark:text-zinc-200"
               >
                 {tech}
-              </article>
+              </span>
             ))}
           </div>
-          <button className="ml-auto group">
-            <Link href={`/portfolio/${id}`}
-              className="flex items-center"
+          <div className="mt-auto pt-4 flex justify-end">
+            <Link
+              href={`/portfolio/${id}`}
+              className="flex items-center group text-base font-medium hover:underline"
             >
-              View Details
-              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              {t('View')}
+              <ArrowRight className="ms-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </button>
+          </div>
         </div>
       </div>
     </motion.div>
