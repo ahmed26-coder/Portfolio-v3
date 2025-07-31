@@ -53,7 +53,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
   }, [])
 
   return (
-    <div className="relative inline-block mx-auto mt-3" ref={menuRef}>
+    <div className="relative inline-block mx-auto mt-4" ref={menuRef}>
       <button
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-1 h-8 text-sm border rounded-md bg-transparent transition

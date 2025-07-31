@@ -1,4 +1,5 @@
-"use client";
+"use client"
+
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import { Home, User, Briefcase, Mail, Sun, Menu, X, LucideIcon } from "lucide-re
 import { usePathname } from "next/navigation";
 import React from "react";
 import LanguageSwitcher from "./languages";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface MenuItemProps {
   icon: LucideIcon;
@@ -37,7 +38,7 @@ interface MenuItemConfig {
 const MenuItem = React.memo(function MenuItem({ icon: Icon, label, isExpanded, isActive, onClick }: MenuItemProps) {
   return (
     <div
-      className={`flex items-center p-3 text-lg rounded-lg cursor-pointer transition-all duration-200 ${
+      className={`flex gap-4 items-center w-full px-3 py-2 text-lg rounded-lg cursor-pointer transition-all duration-200 ${
         isActive
           ? "bg-gray-200 dark:bg-[#AEB1B7]/32 text-black dark:text-white font-semibold"
           : "text-[#666666] dark:text-[#FFFFFF]/50"
@@ -46,12 +47,10 @@ const MenuItem = React.memo(function MenuItem({ icon: Icon, label, isExpanded, i
     >
       <Icon
         className={`w-6 h-6 ${
-          isActive
-            ? "text-black dark:text-white"
-            : "text-[#666666] dark:text-[#FFFFFF]/50"
+          isActive ? "text-black dark:text-white" : "text-[#666666] dark:text-[#FFFFFF]/50"
         }`}
       />
-      {isExpanded && <span className="ml-3">{label}</span>}
+      {isExpanded && <span>{label}</span>}
     </div>
   );
 });
@@ -97,28 +96,40 @@ export default function Sidebar() {
   const lastScrollY = useRef(0);
   const t = useTranslations("nav.menu");
   const tProfile = useTranslations("nav");
+  const locale = useLocale();
 
-  const menuItems = useMemo<MenuItemConfig[]>(() => [
-    { href: "/", title: t("Home"), icon: Home, label: t("Home"), key: "Home" },
-    { href: "/about", title: t("About"), icon: User, label: t("About"), key: "About" },
-    { href: "/portfolio", title: t("Portfolio"), icon: Briefcase, label: t("Portfolio"), key: "Portfolio" },
-    { href: "/contact", title: t("Contact"), icon: Mail, label: t("Contact"), key: "Contact" },
-  ], [t]);
+  // Normalize pathname to remove locale prefix
+  const normalizedPathname = pathname.startsWith(`/${locale}`)
+    ? pathname.replace(`/${locale}`, "") || "/"
+    : pathname;
 
-  const socialLinks = useMemo<SocialLink[]>(() => [
-    { href: "https://wa.me/201016626452", title: "WhatsApp", icon: "/whatsapp-svgrepo-com.svg" },
-    { href: "https://www.linkedin.com/in/ahmed-adham-479334331/", title: "LinkedIn", icon: "/linkedin-svgrepo-com.svg", width: 30, height: 30 },
-    { href: "https://github.com/ahmed26-coder", title: "GitHub", icon: "/github-svgrepo-com.svg" },
-  ], []);
+  const menuItems = useMemo<MenuItemConfig[]>(
+    () => [
+      { href: "/", title: t("Home"), icon: Home, label: t("Home"), key: "Home" },
+      { href: "/about", title: t("About"), icon: User, label: t("About"), key: "About" },
+      { href: "/portfolio", title: t("Portfolio"), icon: Briefcase, label: t("Portfolio"), key: "Portfolio" },
+      { href: "/contact", title: t("Contact"), icon: Mail, label: t("Contact"), key: "Contact" },
+    ],
+    [t]
+  );
 
-  const activeItem = useMemo(() => {
-    const current = menuItems.find((item) => item.href === pathname);
-    return current?.label || "";
-  }, [pathname, menuItems]);
+  const socialLinks = useMemo<SocialLink[]>(
+    () => [
+      { href: "https://wa.me/201016626452", title: "WhatsApp", icon: "/whatsapp-svgrepo-com.svg" },
+      {
+        href: "https://www.linkedin.com/in/ahmed-adham-479334331/",
+        title: "LinkedIn",
+        icon: "/linkedin-svgrepo-com.svg",
+        width: 30,
+        height: 30,
+      },
+      { href: "https://github.com/ahmed26-coder", title: "GitHub", icon: "/github-svgrepo-com.svg" },
+    ],
+    []
+  );
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
@@ -152,7 +163,9 @@ export default function Sidebar() {
         setIsMobileMenuOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside, {
+    document
+
+.addEventListener("mousedown", handleClickOutside, {
       passive: true,
       signal: controller.signal,
     });
@@ -161,7 +174,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
       <div className="grid grid-cols-1 z-50">
         <div
           className={`hidden lg:flex flex-col h-[100vh] top-0 bg-gray-100 dark:bg-black sm:sticky left-0 transition-all duration-300 ${
@@ -196,14 +208,14 @@ export default function Sidebar() {
               </>
             )}
           </div>
-          <nav className=" flex flex-col items-center mx-auto justify-center">
+          <nav className="flex flex-col justify-center mx-auto">
             {menuItems.map(({ href, icon: Icon, label, key, title }) => (
-              <Link aria-label={title} key={key} href={href}>
+              <Link className="my-2 w-full items-center" aria-label={title} key={key} href={href}>
                 <MenuItem
                   icon={Icon}
                   label={label}
                   isExpanded={isExpanded}
-                  isActive={activeItem === label}
+                  isActive={normalizedPathname === href} // Use normalized pathname
                   onClick={() => setIsMobileMenuOpen(false)}
                 />
               </Link>
@@ -266,11 +278,11 @@ export default function Sidebar() {
             />
             <motion.div
               ref={mobileMenuRef}
-              initial={{ x: -350, opacity: 0 }}
+              initial={{ x: locale === "ar" ? 350 : -350, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -350, opacity: 0 }}
+              exit={{ x: locale === "ar" ? 350 : -350, opacity: 0 }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="z-50 lg:hidden fixed top-0 left-0 w-[270px] min-h-screen bg-gray-100 dark:bg-black p-4 shadow-xl"
+              className={`z-50 lg:hidden fixed top-0 ${locale === "ar" ? "right-0" : "left-0"} w-56 min-h-screen bg-gray-100 dark:bg-black p-4 shadow-xl`}
             >
               <div className="flex flex-col items-center mb-4">
                 <Image
@@ -294,14 +306,14 @@ export default function Sidebar() {
                   ))}
                 </div>
               </div>
-              <nav className="space-y-3 flex flex-col items-center justify-center">
+              <nav className="flex flex-col justify-center mx-3">
                 {menuItems.map(({ href, icon, label, title }) => (
-                  <Link aria-label={title} key={label} href={href} onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link className="my-2 w-full items-center" aria-label={title} key={label} href={href} onClick={() => setIsMobileMenuOpen(false)}>
                     <MenuItem
                       icon={icon}
                       label={label}
                       isExpanded={true}
-                      isActive={activeItem === label}
+                      isActive={normalizedPathname === href} // Use normalized pathname
                       onClick={() => setIsMobileMenuOpen(false)}
                     />
                   </Link>

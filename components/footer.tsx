@@ -29,19 +29,19 @@ export async function Footer () {
 
   return (
     <>
-      <footer className="w-full px-10 items-center h-fit flex flex-col sm:flex-row sm:flex-wrap justify-between py-[2%] sm:py-[0.5%] bg-gray-100 dark:bg-black text-left">
-        <small className="dark:text-[#FFFFFF]/40 text-[#999999] flex items-center">
+      <footer className="w-full mx-auto sm:px-10 items-center h-fit flex flex-col sm:flex-row sm:flex-wrap justify-between py-[2%] sm:py-[0.5%] bg-gray-100 dark:bg-black text-left">
+        <small className="dark:text-[#FFFFFF]/40 text-[#999999] flex gap-0.5 items-center font-play">
           <Image src="/logome6-removebg-preview.webp" alt="Logo" width={30} height={30} priority={true} />
-          &copy;2025 {" "}
-          <span className="text-black dark:text-white text-base font-bold">
-            <span className="font-play">{t('name')}</span><span className="dark:text-[#FFFFFF]/40 text-[#999999]">.{t('role')}</span>
+          &copy;2025{" "}
+          <span className="text-black dark:text-white text-sm space-x-0.5 font-bold">
+            <span>{t('name')}</span><span className="dark:text-[#FFFFFF]/40 text-[#999999]">.{t('role')}</span>
           </span>
         </small>
 
-        <div className="sm:flex hidden flex-col lg:flex-row gap-2 lg:gap-10 mt-2 sm:mt-0">
-          <small className="text-black dark:text-white text-base font-bold">
+        <div className="sm:flex hidden items-center flex-col lg:flex-row gap-2 lg:gap-10 mt-2 sm:mt-0">
+          <small className="text-black dark:text-white text-sm space-x-0.5 font-play font-bold">
             <span className="dark:text-[#FFFFFF]/40 text-[#999999] font-normal">{t('designed')}</span>
-            {t('name')}
+            <span>{t('name')}</span>
           </small>
           <div className=" flex items-center sm:hidden lg:flex gap-4 text-2xl sm:mt-0 mt-3 sm:mx-0 mx-auto">
             {socialLinks.map((item, index) => (
