@@ -9,8 +9,6 @@ import { routing } from "@/i18n/routing";
 import { getMessages } from "next-intl/server";
 import notFound from "./not-found";
 import { Footer } from "@/components/footer";
-
-// Fonts
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"]
@@ -36,7 +34,6 @@ export async function generateMetadata({
     description: string;
     keywords: string[];
   };
-
   return {
     title: t.title,
     description: t.description,
@@ -69,7 +66,6 @@ export async function generateMetadata({
     }
   };
 }
-
 export default async function LocaleLayout({
   children,
   params
@@ -78,11 +74,9 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
   let messages;
   try {
     messages = await getMessages({ locale });
@@ -90,9 +84,7 @@ export default async function LocaleLayout({
   } catch (error) {
     notFound();
   }
-
   const dir = locale === "ar" ? "rtl" : "ltr";
-
   return (
     <body
       dir={dir}

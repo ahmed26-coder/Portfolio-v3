@@ -1,7 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react'
-import { Check, Globe, ChevronDown, ArrowRightLeft, Sparkles } from 'lucide-react'
+import { Check, ChevronDown, ArrowRightLeft, Sparkles } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -17,8 +18,8 @@ type Language = {
 }
 
 const languages: Language[] = [
-  { code: 'ar', name: 'Arabic', nativeName: 'العربية', direction: 'rtl', symbol: 'ع', flag: 'Ar', sample: 'مرحبا بالعالم' },
-  { code: 'en', name: 'English', nativeName: 'English', direction: 'ltr', symbol: 'E', flag: '🇺🇸', sample: 'Hello World' },
+  { code: 'ar', name: 'Arabic', nativeName: 'العربية', direction: 'rtl', symbol: 'ع', flag: '/egypt.svg', sample: 'مرحبا بالعالم' },
+  { code: 'en', name: 'English', nativeName: 'English', direction: 'ltr', symbol: 'E', flag: '/us.svg', sample: 'Hello World' },
 ]
 
 type Props = {
@@ -89,9 +90,9 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
         <button
           onClick={() => setOpen(!open)}
           className={`flex items-center gap-1 h-8 text-sm border rounded-md bg-transparent transition
-            ${isSidebarExpanded ? 'px-2 hover:bg-gray-100 dark:hover:bg-gray-800' : 'px-1 w-full justify-center'}`}
+            ${isSidebarExpanded ? 'px-2 hover:bg-gray-100 dark:hover:bg-gray-800' : 'px-2 w-full justify-center'}`}
         >
-          <Globe className="h-4 w-4 text-[#17ddb9]" />
+          <Image src={currentLanguage.flag} alt={currentLanguage.code} width={20} height={20} />
           {isSidebarExpanded && (
             <>
               <span className="mx-1">{currentLanguage.nativeName}</span>
@@ -108,6 +109,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
                 onClick={() => handleLanguageChange(language)}
                 className="w-full text-left px-3 py-2 text-sm flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-800 transition"
               >
+                <Image src={language.flag} alt={language.code} width={20} height={20} />
                 <span>{language.nativeName}</span>
                 {currentLanguage.code === language.code && (
                   <Check className="h-4 w-4 text-[#17ddb9]" />
@@ -142,7 +144,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
                   className="flex flex-col items-center"
                   animate={{ opacity: progress > 50 ? 0.3 : 1, scale: progress > 50 ? 0.8 : 1 }}
                 >
-                  <div className="text-6xl text-white">{fromLang.flag}</div>
+                  <Image src={fromLang.flag} alt={fromLang.code} width={100} height={100} />
                   <div className="text-white text-xl">{fromLang.nativeName}</div>
                   <div className="text-white/70">{fromLang.sample}</div>
                 </motion.div>
@@ -160,7 +162,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
                   className="flex flex-col items-center"
                   animate={{ opacity: progress > 50 ? 1 : 0.3, scale: progress > 50 ? 1 : 0.8 }}
                 >
-                  <div className="text-6xl text-white">{toLang.flag}</div>
+                  <Image src={toLang.flag} alt={toLang.code} width={100} height={100} />
                   <div className="text-white text-xl">{toLang.nativeName}</div>
                   <div className="text-white/70">{toLang.sample}</div>
                 </motion.div>

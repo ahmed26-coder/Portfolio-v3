@@ -17,10 +17,10 @@ export default async function Home() {
           {t("work")}
         </p>
 
-        <h1 className="text-4xl md:items-center gap-3 font-bold dark:text-white flex flex-col sm:flex-row sm:flex-wrap text-[#111111] mt-7 sm:mt-10">
+        <h1 className=" text-3xl sm:text-4xl md:items-center gap-3 font-bold dark:text-white flex flex-col sm:flex-row sm:flex-wrap text-[#111111] mt-7 sm:mt-10">
           {t("hi")}<span>{t("title")}<span className=" -mt-2"><Motion /></span></span>
         </h1>
-        <h1 className="text-4xl font-bold dark:text-[#FFFFFF]/60 text-[#666666] mt-3">
+        <h1 className="text-3xl sm:text-4xl font-bold dark:text-[#FFFFFF]/60 text-[#666666] mt-3">
           {t("type")}
         </h1>
 
@@ -35,7 +35,7 @@ export default async function Home() {
 
         <div className="flex flex-col sm:flex-row sm:justify-start gap-5 mt-10 w-full">
           <Buttom />
-          <a className="w-full sm:w-auto justify-center cursor-pointer flex items-center gap-2 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md" href="/ATS_Friendly_Technical_Resume__2_ (9).pdf" download><span><Bookmark className="text-[#AEB1B7] font-bold text-lg" /></span>{t("button2")}</a>
+          <a className="w-full sm:w-auto justify-center cursor-pointer flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-zinc-900 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md" href="/ATS_Friendly_Technical_Resume__2_ (9).pdf" download><span><Bookmark className="text-[#AEB1B7] font-bold text-lg" /></span>{t("button2")}</a>
         </div>
       </div>
     </>

@@ -12,7 +12,7 @@ export default async function About() {
     <div>
       <div className="flex flex-col lg:flex-row items-center gap-10">
         <div className="">
-          <h1 className="text-4xl gap-2 flex flex-col md:flex-row font-bold dark:text-white text-[#111111] mt-5 sm:mt-10">
+          <h1 className="text-3xl sm:text-4xl gap-2 flex flex-col md:flex-row font-bold dark:text-white text-[#111111] mt-5 sm:mt-10">
             {t('title')} <span className="items-center md:-mt-2"><Motion /></span>
           </h1>
           <h1 className="text-3xl sm:text-4xl font-bold dark:text-[#FFFFFF]/60 text-[#666666] mt-3">
@@ -27,7 +27,7 @@ export default async function About() {
 
       <div className="flex justify-center sm:justify-start mt-10">
         <a
-          className="w-full sm:w-auto justify-center cursor-pointer flex items-center gap-2 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md"
+          className="w-full sm:w-auto justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-900 flex items-center gap-2 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md"
           href="/ATS_Friendly_Technical_Resume__2_ (9).pdf"
           download
         >
