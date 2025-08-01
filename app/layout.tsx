@@ -5,15 +5,16 @@ export default async function RootLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
+params: Promise<{ locale: string }>
 }) {
-  const { locale } = await params;
-  const validLocale = locale === "ar" ? "ar" : "en";
+  const locale = (await params).locale;
+  const validLocale = ['ar', 'en'].includes(locale) ? locale : 'en';
+  const dir = validLocale === 'ar' ? 'rtl' : 'ltr';
 
   return (
     <html
       lang={validLocale}
-      dir={validLocale === "ar" ? "rtl" : "ltr"}
+      dir={dir}
       className="dark"
       suppressHydrationWarning
     >

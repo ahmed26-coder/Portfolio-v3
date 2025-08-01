@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, MutableRefObject } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Briefcase, Mail, Sun, Menu, X, LucideIcon } from "lucide-react";
+import { Home, User, Briefcase, Mail, Sun, Menu, X, LucideIcon, Pin } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";
 import LanguageSwitcher from "./languages";
@@ -38,17 +38,14 @@ interface MenuItemConfig {
 const MenuItem = React.memo(function MenuItem({ icon: Icon, label, isExpanded, isActive, onClick }: MenuItemProps) {
   return (
     <div
-      className={`flex gap-4 items-center w-full px-3 py-2 text-lg rounded-lg cursor-pointer transition-all duration-200 ${
-        isActive
+      className={`flex gap-4 items-center w-full px-3 py-2 text-lg rounded-lg cursor-pointer transition-all duration-200 ${isActive
           ? "bg-gray-200 dark:bg-[#AEB1B7]/32 text-black dark:text-white font-semibold"
           : "text-[#666666] dark:text-[#FFFFFF]/50"
-      }`}
+        }`}
       onClick={onClick}
     >
       <Icon
-        className={`w-6 h-6 ${
-          isActive ? "text-black dark:text-white" : "text-[#666666] dark:text-[#FFFFFF]/50"
-        }`}
+        className={`w-6 h-6 ${isActive ? "text-black dark:text-white" : "text-[#666666] dark:text-[#FFFFFF]/50"}`}
       />
       {isExpanded && <span>{label}</span>}
     </div>
@@ -88,15 +85,216 @@ const SocialIcon = React.memo(function SocialIcon({
   );
 });
 
+const DesktopSidebar = ({
+  isExpanded,
+  setIsExpanded,
+  isLargeScreen,
+  isPinned,
+  setIsPinned,
+  normalizedPathname,
+  menuItems,
+  socialLinks,
+  toggleTheme,
+  tProfile,
+  locale,
+}: {
+  isExpanded: boolean;
+  setIsExpanded: (value: boolean) => void;
+  isLargeScreen: boolean;
+  isPinned: boolean;
+  setIsPinned: (value: boolean) => void;
+  normalizedPathname: string;
+  menuItems: MenuItemConfig[];
+  socialLinks: SocialLink[];
+  toggleTheme: () => void;
+  tProfile: (key: string) => string;
+  locale: string;
+}) => (
+  <div
+    className={`hidden lg:flex flex-col h-[100vh] top-0 bg-gray-100 dark:bg-black sm:sticky left-0 transition-[width,padding,opacity] duration-300 ease-in-out hover:bg-gray-200/50 dark:hover:bg-gray-800/50 ${isExpanded || isPinned ? "fixed w-56 left-0 p-4 z-50 opacity-100" : "sticky w-20 py-4 px-0 sm:sticky top-0 opacity-90"
+      }`}
+    onMouseEnter={!isLargeScreen && !isPinned ? () => setIsExpanded(true) : undefined}
+    onMouseLeave={!isLargeScreen && !isPinned ? () => setIsExpanded(false) : undefined}
+  >
+    {isExpanded && !isLargeScreen && (
+      <button
+        onClick={() => setIsPinned(!isPinned)}
+        className={`absolute top-4 right-4 ${isPinned
+            ? "text-green-500 hover:text-green-600"
+            : "text-[#666666] dark:text-[#FFFFFF]/50 hover:text-black dark:hover:text-white"
+          }`}
+        aria-label={isPinned ? "Unpin Sidebar" : "Pin Sidebar"}
+      >
+        <Pin size={20} />
+      </button>
+    )}
+    <div className="flex flex-col items-center mb-6">
+      <Image
+        className="rounded-full"
+        src="/me.jpg"
+        alt="Profile"
+        width={40}
+        height={40}
+        priority
+        placeholder="blur"
+        blurDataURL="/example-blur.jpg"
+      />
+      {(isExpanded || isPinned) && (
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className="text-center mt-2"
+        >
+          <h2 className="text-2xl text-[#111111] dark:text-white font-semibold">{tProfile("name")}</h2>
+          <p className="text-base text-[#666666]">{tProfile("jobTitle1")}</p>
+          <p className="text-base text-[#666666]">{tProfile("jobTitle2")}</p>
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+            className="flex space-x-3 mt-3 justify-center"
+          >
+            {socialLinks.map((link, index) => (
+              <SocialIcon key={index} {...link} />
+            ))}
+          </motion.div>
+        </motion.div>
+      )}
+    </div>
+    <nav className="flex flex-col justify-center mx-auto">
+      {menuItems.map(({ href, icon: Icon, label, key, title }) => (
+        <Link locale={locale} className="my-2 w-full items-center" aria-label={title} key={key} href={href}>
+          <MenuItem
+            icon={Icon}
+            label={label}
+            isExpanded={isExpanded || isPinned}
+            isActive={normalizedPathname === href}
+            onClick={() => { }}
+          />
+        </Link>
+      ))}
+    </nav>
+    <div onClick={toggleTheme} className="flex justify-center dark:text-[#FFFFFF]/40 my-1">
+      <SocialIcon icon={Sun} title="Toggle Theme" />
+    </div>
+    {!(isExpanded || isPinned) && (
+      <div className="flex-col space-y-3 mt-5 mx-auto justify-center items-center">
+        {socialLinks.map((link, index) => (
+          <SocialIcon key={index} {...link} />
+        ))}
+      </div>
+    )}
+    <LanguageSwitcher isSidebarExpanded={isExpanded || isPinned} />
+  </div>
+);
+
+const MobileSidebar = ({
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+  normalizedPathname,
+  menuItems,
+  socialLinks,
+  toggleTheme,
+  tProfile,
+  locale,
+  mobileMenuRef,
+}: {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (value: boolean) => void;
+  normalizedPathname: string;
+  menuItems: MenuItemConfig[];
+  socialLinks: SocialLink[];
+  toggleTheme: () => void;
+  tProfile: (key: string) => string;
+  locale: string;
+  mobileMenuRef: MutableRefObject<HTMLDivElement | null>;
+}) => (
+  <AnimatePresence>
+    {isMobileMenuOpen && (
+      <>
+        <motion.div
+          className="fixed inset-0 bg-black/40 z-40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        <motion.div
+          ref={mobileMenuRef}
+          initial={{ x: locale === "ar" ? 350 : -350, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: locale === "ar" ? 350 : -350, opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
+          className={`z-50 lg:hidden fixed top-0 ${locale === "ar" ? "right-0" : "left-0"} w-56 min-h-screen bg-gray-100 dark:bg-black p-4 shadow-xl`}
+        >
+          <div className="flex flex-col items-center mb-4">
+            <Image
+              className="rounded-full"
+              src="/me.jpg"
+              alt="Profile"
+              width={60}
+              height={60}
+              priority
+              placeholder="blur"
+              blurDataURL="/example-blur.jpg"
+            />
+            <div className="text-center mt-2">
+              <h2 className="text-xl text-[#111111] dark:text-white font-semibold">{tProfile("name")}</h2>
+              <p className="text-sm text-[#666666]">{tProfile("jobTitle1")}</p>
+              <p className="text-sm text-[#666666]">{tProfile("jobTitle2")}</p>
+            </div>
+            <div className="flex space-x-3 mt-3 justify-center">
+              {socialLinks.map((link, index) => (
+                <SocialIcon key={index} {...link} />
+              ))}
+            </div>
+          </div>
+          <nav className="flex flex-col justify-center mx-3">
+            {menuItems.map(({ href, icon, label, title }) => (
+              <Link
+                locale={locale}
+                className="my-2 w-full items-center"
+                aria-label={title}
+                key={label}
+                href={href}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <MenuItem
+                  icon={icon}
+                  label={label}
+                  isExpanded={true}
+                  isActive={normalizedPathname === href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
+              </Link>
+            ))}
+          </nav>
+          <div onClick={toggleTheme} className="flex justify-center items-center py-1 mx-auto dark:text-[#FFFFFF]/40">
+            <SocialIcon icon={Sun} title="Toggle Theme" />
+          </div>
+          <div className="flex justify-center">
+            <LanguageSwitcher />
+          </div>
+        </motion.div>
+      </>
+    )}
+  </AnimatePresence>
+);
+
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const pathname = usePathname();
   const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
   const t = useTranslations("nav.menu");
   const tProfile = useTranslations("nav");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const locale = useLocale();
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   // Normalize pathname to remove locale prefix
   const normalizedPathname = pathname.startsWith(`/${locale}`)
@@ -128,21 +326,53 @@ export default function Sidebar() {
     []
   );
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  // Restore pin state from localStorage on mount
+useEffect(() => {
+  const savedPinned = localStorage.getItem("sidebarPinned") === "true";
+  setIsPinned(savedPinned);
+}, []);
+
+// Save pin state to localStorage whenever it changes
+useEffect(() => {
+  localStorage.setItem("sidebarPinned", String(isPinned));
+}, [isPinned]);
+
+// Handle screen resizing
+useEffect(() => {
+  const mediaQuery = window.matchMedia("(min-width: 1636px)");
+
+  const handleMediaChange = (e: MediaQueryListEvent) => {
+    setIsLargeScreen(e.matches);
+    setIsExpanded(e.matches);
+
+    if (!e.matches) {
+      setIsPinned(false);
+    }
+  };
+
+  setIsLargeScreen(mediaQuery.matches);
+  setIsExpanded(mediaQuery.matches);
+
+  mediaQuery.addEventListener("change", handleMediaChange);
+  return () => mediaQuery.removeEventListener("change", handleMediaChange);
+}, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      const is4K = window.innerWidth >= 1636;
-      setIsLargeScreen(is4K);
-      setIsExpanded(is4K);
+    const mediaQuery = window.matchMedia("(min-width: 1636px)");
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      setIsLargeScreen(e.matches);
+      setIsExpanded(e.matches);
+      if (e.matches) setIsPinned(false); // Reset pinned state on large screens
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    setIsLargeScreen(mediaQuery.matches);
+    setIsExpanded(mediaQuery.matches);
+
+    mediaQuery.addEventListener("change", handleMediaChange);
+    return () => mediaQuery.removeEventListener("change", handleMediaChange);
   }, []);
 
   useEffect(() => {
@@ -163,9 +393,7 @@ export default function Sidebar() {
         setIsMobileMenuOpen(false);
       }
     };
-    document
-
-.addEventListener("mousedown", handleClickOutside, {
+    document.addEventListener("mousedown", handleClickOutside, {
       passive: true,
       signal: controller.signal,
     });
@@ -175,71 +403,23 @@ export default function Sidebar() {
   return (
     <>
       <div className="grid grid-cols-1 z-50">
-        <div
-          className={`hidden lg:flex flex-col h-[100vh] top-0 bg-gray-100 dark:bg-black sm:sticky left-0 transition-all duration-300 ${
-            isExpanded ? "fixed w-56 left-0 p-4 z-50" : "sticky w-20 py-4 px-0 sm:sticky top-0"
-          }`}
-          onMouseEnter={!isLargeScreen ? () => setIsExpanded(true) : undefined}
-          onMouseLeave={!isLargeScreen ? () => setIsExpanded(false) : undefined}
-        >
-          <div className="flex flex-col items-center mb-6">
-            <Image
-              className="rounded-full"
-              src="/me.jpg"
-              alt="Profile"
-              width={40}
-              height={40}
-              priority
-              placeholder="blur"
-              blurDataURL="/example-blur.jpg"
-            />
-            {isExpanded && (
-              <>
-                <div className="text-center mt-2">
-                  <h2 className="text-2xl text-[#111111] dark:text-white font-semibold">{tProfile("name")}</h2>
-                  <p className="text-base text-[#666666]">{tProfile("jobTitle1")}</p>
-                  <p className="text-base text-[#666666]">{tProfile("jobTitle2")}</p>
-                </div>
-                <div className="flex space-x-3 mt-3 justify-center">
-                  {socialLinks.map((link, index) => (
-                    <SocialIcon key={index} {...link} />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-          <nav className="flex flex-col justify-center mx-auto">
-            {menuItems.map(({ href, icon: Icon, label, key, title }) => (
-              <Link locale={locale} className="my-2 w-full items-center" aria-label={title} key={key} href={href}>
-                <MenuItem
-                  icon={Icon}
-                  label={label}
-                  isExpanded={isExpanded}
-                  isActive={normalizedPathname === href} // Use normalized pathname
-                  onClick={() => setIsMobileMenuOpen(false)}
-                />
-              </Link>
-            ))}
-          </nav>
-          <div onClick={toggleTheme} className="flex justify-center dark:text-[#FFFFFF]/40 my-1">
-            <SocialIcon icon={Sun} title="Toggle Theme" />
-          </div>
-          {!isExpanded && (
-            <div className="flex-col space-y-3 mt-5 mx-auto justify-center items-center">
-              {socialLinks.map((link, index) => (
-                <SocialIcon key={index} {...link} />
-              ))}
-            </div>
-          )}
-          <LanguageSwitcher isSidebarExpanded={isExpanded} />
-        </div>
+        <DesktopSidebar
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+          isLargeScreen={isLargeScreen}
+          isPinned={isPinned}
+          setIsPinned={setIsPinned}
+          normalizedPathname={normalizedPathname}
+          menuItems={menuItems}
+          socialLinks={socialLinks}
+          toggleTheme={toggleTheme}
+          tProfile={tProfile}
+          locale={locale}
+        />
       </div>
-
-      {/* Mobile Header */}
       <div
-        className={`z-50 lg:hidden fixed top-0 left-0 w-full bg-gray-100 dark:bg-black flex justify-between items-center p-4 shadow-lg transition-transform duration-300 ${
-          isMobileHeaderVisible ? "translate-y-0" : "-translate-y-full"
-        }`}
+        className={`z-50 lg:hidden fixed top-0 left-0 w-full bg-gray-100 dark:bg-black flex justify-between items-center p-4 shadow-lg transition-transform duration-300 ${isMobileHeaderVisible ? "translate-y-0" : "-translate-y-full"
+          }`}
       >
         <Link locale={locale} href="/">
           <div className="flex items-center space-x-3">
@@ -263,72 +443,17 @@ export default function Sidebar() {
           </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            <motion.div
-              className="fixed inset-0 bg-black/40 z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            <motion.div
-              ref={mobileMenuRef}
-              initial={{ x: locale === "ar" ? 350 : -350, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: locale === "ar" ? 350 : -350, opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className={`z-50 lg:hidden fixed top-0 ${locale === "ar" ? "right-0" : "left-0"} w-56 min-h-screen bg-gray-100 dark:bg-black p-4 shadow-xl`}
-            >
-              <div className="flex flex-col items-center mb-4">
-                <Image
-                  className="rounded-full"
-                  src="/me.jpg"
-                  alt="Profile"
-                  width={60}
-                  height={60}
-                  priority
-                  placeholder="blur"
-                  blurDataURL="/example-blur.jpg"
-                />
-                <div className="text-center mt-2">
-                  <h2 className="text-xl text-[#111111] dark:text-white font-semibold">{tProfile("name")}</h2>
-                  <p className="text-sm text-[#666666]">{tProfile("jobTitle1")}</p>
-                  <p className="text-sm text-[#666666]">{tProfile("jobTitle2")}</p>
-                </div>
-                <div className="flex space-x-3 mt-3 justify-center">
-                  {socialLinks.map((link, index) => (
-                    <SocialIcon key={index} {...link} />
-                  ))}
-                </div>
-              </div>
-              <nav className="flex flex-col justify-center mx-3">
-                {menuItems.map(({ href, icon, label, title }) => (
-                  <Link locale={locale} className="my-2 w-full items-center" aria-label={title} key={label} href={href} onClick={() => setIsMobileMenuOpen(false)}>
-                    <MenuItem
-                      icon={icon}
-                      label={label}
-                      isExpanded={true}
-                      isActive={normalizedPathname === href} // Use normalized pathname
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    />
-                  </Link>
-                ))}
-              </nav>
-              <div onClick={toggleTheme} className="flex justify-center items-center py-1 mx-auto dark:text-[#FFFFFF]/40">
-                <SocialIcon icon={Sun} title="Toggle Theme" />
-              </div>
-              <div className="flex justify-center">
-                <LanguageSwitcher />
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <MobileSidebar
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+        normalizedPathname={normalizedPathname}
+        menuItems={menuItems}
+        socialLinks={socialLinks}
+        toggleTheme={toggleTheme}
+        tProfile={tProfile}
+        locale={locale}
+        mobileMenuRef={mobileMenuRef}
+      />
     </>
   );
 }

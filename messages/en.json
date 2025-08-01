@@ -301,5 +301,31 @@
     "...Applying language settings",
     "...Finalizing conversion"
   ]
-}
+},
+  "metadata": {
+    "title": "Ahmed Adham's Portfolio",
+    "description": "A portfolio website showcasing my front-end skills and projects.",
+     "keywords": [
+  "Frontend Developer",
+  "React Developer",
+  "Next.js Developer",
+  "Tailwind CSS",
+  "Web Development",
+  "Responsive Web Design",
+  "UI/UX Development",
+  "JavaScript Developer",
+  "HTML5 CSS3",
+  "Frontend Portfolio",
+  "Modern Web Applications",
+  "React JS",
+  "Next.js Web Development",
+  "Web Performance Optimization",
+  "Cross-Browser Compatibility",
+  "Frontend Web Developer",
+  "Egypt Frontend Developer",
+  "Custom Web Interfaces",
+  "Single Page Applications",
+  "Progressive Web Apps"
+]
+  }
 }
