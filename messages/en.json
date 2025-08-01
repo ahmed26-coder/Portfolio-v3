@@ -109,7 +109,8 @@
 
 
     "AboutPage": {
-        "title": "Hello! I'm Ahmad Adham ",
+        "title": "I'm Ahmad Adham ",
+        "hi": "Hello!",
         "type": "Front-end Developer | React & Next.js Expert",
         "about": "As a passionate Front-end Developer, I am eager to create visually captivating and user-friendly designs. I may be at the beginning of my journey, but I am dedicated to learning, growing, and building amazing experiences. Let's collaborate and make something great together!",
         "button1": "Download Cv",

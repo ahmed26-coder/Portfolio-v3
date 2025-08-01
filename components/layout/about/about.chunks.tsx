@@ -12,8 +12,8 @@ export default async function About() {
     <div>
       <div className="flex flex-col lg:flex-row items-center gap-10">
         <div className="">
-          <h1 className="text-3xl sm:text-4xl gap-2 flex flex-col md:flex-row font-bold dark:text-white text-[#111111] mt-5 sm:mt-10">
-            {t('title')} <span className="items-center md:-mt-2"><Motion /></span>
+          <h1 className=" text-3xl sm:text-4xl md:items-center gap-3 font-bold dark:text-white flex flex-col sm:flex-row sm:flex-wrap text-[#111111] mt-7 sm:mt-10">
+            {t("hi")}<span>{t("title")}<span className=" -mt-2"><Motion /></span></span>
           </h1>
           <h1 className="text-3xl sm:text-4xl font-bold dark:text-[#FFFFFF]/60 text-[#666666] mt-3">
             {t('type')}
@@ -97,7 +97,7 @@ export async function Learning() {
     Rocket: <Rocket className=" w-9 h-9" />,
     TrendingUp: <TrendingUp className=" w-9 h-9" />,
   };
-  
+
   return (
     <section className="py-12 px-8">
       <div className="container max-w-4xl mx-auto text-center">
@@ -128,7 +128,7 @@ export async function Learning() {
 
 export async function Journey() {
   const t = await getTranslations('AboutPage');
-  
+
   const steps = [0, 1, 2, 3].map((i) => ({
     date: t(`steps.${i}.date`),
     title: t(`steps.${i}.title`),
