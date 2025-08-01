@@ -59,7 +59,7 @@ export default function FeaturedProjectCard({
           <div className="space-y-4">
             <div className="space-y-2">
               <h3 className="text-2xl font-bold tracking-tight">{title}</h3>
-              <p className="text-zinc-600 dark:text-zinc-300">{disc[locale]}</p>
+              <p className="text-zinc-600 dark:text-zinc-300 line-clamp-3 md:line-clamp-none">{disc[locale]}</p>
             </div>
 
             <div className="flex flex-wrap gap-2">

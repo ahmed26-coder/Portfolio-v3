@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, User, Briefcase, Mail, Sun, Menu, X, LucideIcon } from "lucide-react";
@@ -10,6 +9,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import LanguageSwitcher from "./languages";
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface MenuItemProps {
   icon: LucideIcon;
@@ -210,7 +210,7 @@ export default function Sidebar() {
           </div>
           <nav className="flex flex-col justify-center mx-auto">
             {menuItems.map(({ href, icon: Icon, label, key, title }) => (
-              <Link className="my-2 w-full items-center" aria-label={title} key={key} href={href}>
+              <Link locale={locale} className="my-2 w-full items-center" aria-label={title} key={key} href={href}>
                 <MenuItem
                   icon={Icon}
                   label={label}
@@ -241,7 +241,7 @@ export default function Sidebar() {
           isMobileHeaderVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <Link href="/">
+        <Link locale={locale} href="/">
           <div className="flex items-center space-x-3">
             <Image src="/me.jpg" alt="Profile" width={45} height={40} className="rounded-full" priority />
             <div>
@@ -308,7 +308,7 @@ export default function Sidebar() {
               </div>
               <nav className="flex flex-col justify-center mx-3">
                 {menuItems.map(({ href, icon, label, title }) => (
-                  <Link className="my-2 w-full items-center" aria-label={title} key={label} href={href} onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link locale={locale} className="my-2 w-full items-center" aria-label={title} key={label} href={href} onClick={() => setIsMobileMenuOpen(false)}>
                     <MenuItem
                       icon={icon}
                       label={label}

@@ -1,7 +1,8 @@
 {
     "HomePage": {
         "work": "Available For Work",
-        "title": "Hello! I'm Ahmad Adham ",
+        "title": " I'm Ahmad Adham ",
+        "hi": "Hello!",
         "type": "Front-end Developer | React & Next.js Expert",
         "location": "Egypt Cairo",
         "about": "As a passionate Front-end Developer, I am eager to create visually captivating and user-friendly designs. I may be at the beginning of my journey, but I am dedicated to learning, growing, and building amazing experiences. Let's collaborate and make something great together!",
@@ -11,7 +12,7 @@
         "experience": "My Experience",
         "User": "User experiences",
         "Programs": "Programs, offices, and experiences that I use",
-        "Loading1": "Loading Skills...",
+        "Loading1": "... Loading Skills",
         "button3": "All Skills",
         "Offer": "What I Offer",
         "services": "Services",
@@ -41,7 +42,7 @@
           "live": "Live Demo",
   "source": "Source Code",
   "View": "View Details",
-        "Loading2": "Loading Project...",
+        "Loading2": "... Loading Project",
          "testimonials": [
   {
     "name": "Sarah Johnson",
@@ -229,7 +230,7 @@
 
 
 "PortfolioPageid": {
-  "Loading": "Loading project...",
+  "Loading": "... Loading project",
   "not": "Project not found",
   "back": "Back to Projects",
   "type": "Frontend Developer",
@@ -291,5 +292,14 @@
   "title": "Page Not Found",
   "description": "Sorry, the page you’re looking for doesn’t exist.",
   "button": "Go Back Home"
+},
+"button": {
+  "phases": [
+    "...Preparing language data",
+    "...Loading translation engine",
+    "...Switching text direction",
+    "...Applying language settings",
+    "...Finalizing conversion"
+  ]
 }
 }

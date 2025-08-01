@@ -7,8 +7,8 @@ import { supabase } from "@/lib/supabase"
 import FeaturedProjectCard from "@/lib/featuredprojectcard"
 import ProjectCard from "@/lib/projectcard"
 import Image from "next/image";
-import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { Link } from '@/i18n/navigation';
 
 type Skill = {
     id: number;
@@ -21,9 +21,9 @@ interface Project {
     id: string
     title: string
     disc: {
-  en: string
-  ar: string
-}
+        en: string
+        ar: string
+    }
     image: string
     demo?: string
     githup?: string
@@ -207,7 +207,7 @@ export function Skills({ isBoxedLayout = false }: { isBoxedLayout?: boolean }) {
                         ))}
                     </div>
                 )}
-                <Link href="/about">
+                <Link locale={locale} href="/about">
                     <button
                         aria-label="all project page"
                         className="border flex justify-center mt-10 mx-auto cursor-pointer border-[#999999] py-1.5 font-medium px-5 rounded-lg items-center gap-2 hover:bg-[#9999]/20"
@@ -235,7 +235,7 @@ export function Project() {
                 <h2 className="text-5xl font-bold font-play">{t("project")}</h2>
             </div>
             <ProjectsList limit={3} />
-            <Link href="/portfolio">
+            <Link locale={locale} href="/portfolio">
                 <button aria-label="all project page" className="border flex justify-center mx-auto cursor-pointer border-[#999999] py-1.5 font-medium px-5 rounded-lg items-center gap-2 hover:bg-[#9999]/20">
                     {t("button4")}
                     <ArrowRight
@@ -245,5 +245,20 @@ export function Project() {
                 </button>
             </Link>
         </section>
+    )
+}
+
+
+export function Buttom() {
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
+    return (
+        <div>
+            <Link locale={locale} href="/About" className="w-full sm:w-auto">
+                <button aria-label="About me page" className="w-full cursor-pointer text-black dark:text-white bg-[#AEB1B7]/32 py-2 px-6 rounded-md text-lg">
+                    {t("button1")}
+                </button>
+            </Link>
+        </div>
     )
 }

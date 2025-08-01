@@ -1,23 +1,24 @@
 import { Dot, MapPin, Bookmark, Github } from "lucide-react";
 import { Code, Rocket, Paintbrush } from "lucide-react";
 import Motion from "@/lib/motion.hand";
-import Link from "next/link";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { getTranslations } from 'next-intl/server';
+import { Link } from "@/i18n/navigation";
+import { Buttom } from "./home.client";
 
 export default async function Home() {
   const t = await getTranslations('HomePage');
   return (
     <>
-      <div className="container mx-auto mt-[28%] sm:mt-[15%] lg:mt-[7%] w-full xl:max-w-[1800px]">
-        <p className=" px-5 rounded-full flex items-center w-fit gap-1 bg-[#09E37D]/16 text-[#088046] dark:text-[#12C971]">
-          <Dot size={40} />
+      <div className="container mx-auto px-3 mt-[28%] sm:mt-[15%] lg:mt-[7%] w-full xl:max-w-[1800px]">
+        <p className=" px-5 rounded-full flex items-center w-fit bg-[#09E37D]/16 text-[#088046] dark:text-[#12C971]">
+          <Dot size={48} strokeWidth={3} className="flex-shrink-0 w-9 h-9" />
           {t("work")}
         </p>
 
-        <h1 className="text-4xl gap-3 font-bold dark:text-white flex flex-col sm:flex-row text-[#111111] mt-7 sm:mt-10">
-          {t("title")}<span className=" -mt-2"><Motion /></span>
+        <h1 className="text-4xl md:items-center gap-3 font-bold dark:text-white flex flex-col sm:flex-row sm:flex-wrap text-[#111111] mt-7 sm:mt-10">
+          {t("hi")}<span>{t("title")}<span className=" -mt-2"><Motion /></span></span>
         </h1>
         <h1 className="text-4xl font-bold dark:text-[#FFFFFF]/60 text-[#666666] mt-3">
           {t("type")}
@@ -33,11 +34,7 @@ export default async function Home() {
         </p>
 
         <div className="flex flex-col sm:flex-row sm:justify-start gap-5 mt-10 w-full">
-          <Link href="/About" className="w-full sm:w-auto">
-            <button aria-label="About me page" className="w-full cursor-pointer text-black dark:text-white bg-[#AEB1B7]/32 py-2 px-6 rounded-md text-lg">
-              {t("button1")}
-            </button>
-          </Link>
+          <Buttom />
           <a className="w-full sm:w-auto justify-center cursor-pointer flex items-center gap-2 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md" href="/ATS_Friendly_Technical_Resume__2_ (9).pdf" download><span><Bookmark className="text-[#AEB1B7] font-bold text-lg" /></span>{t("button2")}</a>
         </div>
       </div>
