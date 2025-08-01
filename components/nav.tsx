@@ -111,7 +111,7 @@ const DesktopSidebar = ({
   locale: string;
 }) => (
   <div
-    className={`hidden lg:flex flex-col h-[100vh] top-0 bg-gray-100 dark:bg-black sm:sticky left-0 transition-[width,padding,opacity] duration-300 ease-in-out hover:bg-gray-200/50 dark:hover:bg-gray-800/50 ${isExpanded || isPinned ? "fixed w-56 left-0 p-4 z-50 opacity-100" : "sticky w-20 py-4 px-0 sm:sticky top-0 opacity-90"
+    className={`hidden lg:flex flex-col h-[100vh] top-0 bg-white dark:bg-black sm:sticky left-0 transition-[width,padding,opacity] duration-300 ease-in-out hover:bg-white dark:hover:bg-black ${isExpanded || isPinned ? "fixed w-56 left-0 p-4 z-50 opacity-100" : "sticky w-20 py-4 px-0 sm:sticky top-0 opacity-90"
       }`}
     onMouseEnter={!isLargeScreen && !isPinned ? () => setIsExpanded(true) : undefined}
     onMouseLeave={!isLargeScreen && !isPinned ? () => setIsExpanded(false) : undefined}

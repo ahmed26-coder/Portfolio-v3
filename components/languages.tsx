@@ -52,7 +52,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
     document.documentElement.dir = language.direction
 
     let current = 0
-    const duration = 2000
+    const duration = 1000
     const interval = 160
     const step = 100 / (duration / interval)
 
@@ -68,7 +68,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
           const segments = pathname.split('/')
           segments[1] = language.code
           router.replace(segments.join('/'))
-        }, 500)
+        }, 200)
       }
     }, interval)
   }
