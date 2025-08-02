@@ -85,7 +85,7 @@ const SocialIcon = React.memo(function SocialIcon({
       className="w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
     >
       {isImage ? (
-        <Image height={height} width={width} src={icon} alt={title} />
+        <Image height={height} width={width} src={icon} alt={title} priority />
       ) : (
         React.createElement(icon, {
           className: "w-6 h-6 text-[#666666] dark:text-[#FFFFFF]/40",

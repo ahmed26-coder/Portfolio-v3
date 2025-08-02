@@ -57,6 +57,7 @@ export default function ProjectDetailPage({ projectId }: ProjectDetailPageProps)
     const [, setAllProjects] = useState<ProjectDetail[]>([])
     const locale = useLocale() as 'en' | 'ar';
     const t = useTranslations('PortfolioPageid');
+    const dir = locale === 'ar' ? 'rtl' : 'ltr';
     //{t('about')}
     useEffect(() => {
         const fetchData = async () => {
@@ -216,7 +217,7 @@ export default function ProjectDetailPage({ projectId }: ProjectDetailPageProps)
                 </div>
 
                 {/* Tabs */}
-                <Tabs defaultValue="overview" className="mb-16 ">
+                <Tabs defaultValue="overview" className="mb-16" dir={dir}>
                     <TabsList className="mb-6 dark:bg-zinc-900">
                         <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
                         <TabsTrigger value="challenge">{t('challenge')}</TabsTrigger>

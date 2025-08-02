@@ -92,7 +92,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
           className={`flex items-center gap-1 h-8 text-sm border rounded-md bg-transparent transition
             ${isSidebarExpanded ? 'px-2 hover:bg-gray-100 dark:hover:bg-gray-800' : 'px-2 w-full justify-center'}`}
         >
-          <Image src={currentLanguage.flag} alt={currentLanguage.code} width={20} height={20} />
+          <Image src={currentLanguage.flag} alt={currentLanguage.code} width={20} height={20} priority />
           {isSidebarExpanded && (
             <>
               <span className="mx-1">{currentLanguage.nativeName}</span>
@@ -144,7 +144,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
                   className="flex flex-col items-center"
                   animate={{ opacity: progress > 50 ? 0.3 : 1, scale: progress > 50 ? 0.8 : 1 }}
                 >
-                  <Image src={fromLang.flag} alt={fromLang.code} width={100} height={100} />
+                  <Image src={fromLang.flag} alt={fromLang.code} width={100} height={100} priority />
                   <div className="text-white text-xl">{fromLang.nativeName}</div>
                   <div className="text-white/70">{fromLang.sample}</div>
                 </motion.div>
@@ -162,7 +162,7 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
                   className="flex flex-col items-center"
                   animate={{ opacity: progress > 50 ? 1 : 0.3, scale: progress > 50 ? 1 : 0.8 }}
                 >
-                  <Image src={toLang.flag} alt={toLang.code} width={100} height={100} />
+                  <Image src={toLang.flag} alt={toLang.code} width={100} height={100} priority />
                   <div className="text-white text-xl">{toLang.nativeName}</div>
                   <div className="text-white/70">{toLang.sample}</div>
                 </motion.div>

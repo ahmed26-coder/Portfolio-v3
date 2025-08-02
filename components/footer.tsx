@@ -31,7 +31,7 @@ export async function Footer () {
     <>
       <footer className="w-full mx-auto sm:px-10 items-center h-fit flex flex-col sm:flex-row sm:flex-wrap justify-between py-[2%] sm:py-[0.5%] bg-gray-100 dark:bg-black text-left">
         <small className="dark:text-[#FFFFFF]/40 text-[#999999] flex gap-0.5 items-center font-play">
-          <Image src="/logome6-removebg-preview.webp" alt="Logo" width={30} height={30} priority={true} />
+          <Image src="/logome6-removebg-preview.webp" alt="Logo" width={30} height={30} priority />
           &copy;2025{" "}
           <span className="text-black dark:text-white text-sm space-x-0.5 font-bold">
             <span>{t('name')}</span><span className="dark:text-[#FFFFFF]/40 text-[#999999]">.{t('role')}</span>
@@ -53,7 +53,7 @@ export async function Footer () {
                 rel="noopener noreferrer"
                 className="transition-transform duration-150 hover:scale-110"
               >
-                <Image src={item.icon} alt={item.title} width={item.width} height={item.height} />
+                <Image src={item.icon} alt={item.title} width={item.width} height={item.height} priority />
               </a>
             ))}
           </div>
@@ -69,7 +69,7 @@ export async function Footer () {
             rel="noopener noreferrer"
             className="transition-transform duration-150 hover:scale-110"
           >
-            <Image src={item.icon} alt={item.title} width={item.width} height={item.height} />
+            <Image src={item.icon} alt={item.title} width={item.width} height={item.height} priority />
           </a>
         ))}
       </div>
