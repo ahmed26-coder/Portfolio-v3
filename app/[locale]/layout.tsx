@@ -96,7 +96,7 @@ export default async function LocaleLayout({
           <div className="lg:flex flex-col min-h-screen">
             <div className="lg:flex">
               <Nav />
-              <main className="mb-10 px-3 sm:px-10 w-full">
+              <main className="px-3 sm:px-10 w-full">
                 {children}
               </main>
               <Toaster richColors position="top-center" />
