@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo, memo } from 'react'
 import { Check, ChevronDown, ArrowRightLeft, Sparkles } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
@@ -26,6 +26,29 @@ type Props = {
   isSidebarExpanded?: boolean
 }
 
+const LanguageOption = memo(function LanguageOption({
+  language,
+  currentLanguage,
+  onClick
+}: {
+  language: Language
+  currentLanguage: Language
+  onClick: (lang: Language) => void
+}) {
+  return (
+    <button
+      onClick={() => onClick(language)}
+      className="w-full text-left px-3 py-2 text-sm flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+    >
+      <Image src={language.flag} alt={language.code} width={20} height={20} loading="lazy" />
+      <span>{language.nativeName}</span>
+      {currentLanguage.code === language.code && (
+        <Check className="h-4 w-4 text-[#17ddb9]" />
+      )}
+    </button>
+  )
+})
+
 export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
   const router = useRouter()
   const pathname = usePathname()
@@ -42,6 +65,17 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
 
   const currentLanguage = languages.find((lang) => lang.code === locale) || languages[0]
 
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 40 }).map(() => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        duration: 3 + Math.random() * 2,
+        delay: Math.random() * 3
+      })),
+    []
+  )
+
   const handleLanguageChange = (language: Language) => {
     if (language.code === locale) return setOpen(false)
 
@@ -49,30 +83,38 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
     setFromLang(currentLanguage)
     setToLang(language)
     setLoading(true)
-    document.documentElement.lang = language.code
-    document.documentElement.dir = language.direction
 
-    let current = 0
+    let start: number | null = null
     const duration = 1000
-    const interval = 160
-    const step = 100 / (duration / interval)
 
-    const timer = setInterval(() => {
-      current += step
-      setProgress(Math.min(current, 100))
+    const animate = (timestamp: number) => {
+      if (!start) start = timestamp
+      const elapsed = timestamp - start
+      const current = Math.min((elapsed / duration) * 100, 100)
+      setProgress(current)
       const index = Math.floor((current / 100) * phases.length)
       setCurrentPhase(Math.min(index, phases.length - 1))
 
-      if (current >= 100) {
-        clearInterval(timer)
+      if (current < 100) {
+        requestAnimationFrame(animate)
+      } else {
         setTimeout(() => {
           const segments = pathname.split('/')
           segments[1] = language.code
           router.replace(segments.join('/'))
         }, 200)
       }
-    }, interval)
+    }
+
+    requestAnimationFrame(animate)
   }
+
+  useEffect(() => {
+    if (toLang) {
+      document.documentElement.lang = toLang.code
+      document.documentElement.dir = toLang.direction
+    }
+  }, [toLang])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -104,17 +146,12 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
         {open && (
           <div className="absolute z-10 mt-1 w-40 rounded-md shadow-md bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
             {languages.map((language) => (
-              <button
+              <LanguageOption
                 key={language.code}
-                onClick={() => handleLanguageChange(language)}
-                className="w-full text-left px-3 py-2 text-sm flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-              >
-                <Image src={language.flag} alt={language.code} width={20} height={20} />
-                <span>{language.nativeName}</span>
-                {currentLanguage.code === language.code && (
-                  <Check className="h-4 w-4 text-[#17ddb9]" />
-                )}
-              </button>
+                language={language}
+                currentLanguage={currentLanguage}
+                onClick={handleLanguageChange}
+              />
             ))}
           </div>
         )}
@@ -127,13 +164,13 @@ export default function LanguageSwitcher({ isSidebarExpanded = true }: Props) {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           >
             <div className="absolute inset-0">
-              {[...Array(40)].map((_, i) => (
+              {particles.map((p, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-1 h-1 bg-white/20 rounded-full"
-                  style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+                  style={{ left: p.left, top: p.top }}
                   animate={{ y: [0, -100, 0], opacity: [0, 1, 0], scale: [0, 1, 0] }}
-                  transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 3 }}
+                  transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
                 />
               ))}
             </div>

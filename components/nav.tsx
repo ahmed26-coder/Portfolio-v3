@@ -29,7 +29,7 @@ interface MenuItemProps {
 }
 
 interface SocialLink {
-  href: string;
+  href?: string;
   title: string;
   icon: string | LucideIcon;
   width?: number;
@@ -66,7 +66,7 @@ const SocialIcon = React.memo(function SocialIcon({
   height = 24,
   width = 24,
   icon,
-  href = "#",
+  href,
   title = "",
 }: {
   icon: string | LucideIcon;
