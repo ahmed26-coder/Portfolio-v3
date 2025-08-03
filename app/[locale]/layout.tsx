@@ -56,6 +56,18 @@ export async function generateMetadata({
           width: 1200,
           height: 630,
           alt: t.title
+        },
+        {
+          url: "/logome6-removebg-preview.webp",
+          width: 1200,
+          height: 1200,
+          alt: t.title
+        },
+        {
+          url: "/logome6-removebg-preview.webp",
+          width: 600,
+          height: 315,
+          alt: t.title
         }
       ],
       locale: locale === "ar" ? "ar_EG" : "en_US",
