@@ -53,8 +53,8 @@ export async function generateMetadata({
       images: [
         {
           url: "/logome6-removebg-preview.webp",
-          width: 1200,
-          height: 630,
+          width: 800,
+          height: 420,
           alt: t.title
         },
         {
@@ -92,7 +92,7 @@ export default async function LocaleLayout({
   let messages;
   try {
     messages = await getMessages({ locale });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     notFound();
   }
