@@ -276,6 +276,7 @@
     "Home": "Home",
     "About": "About",
     "Portfolio": "Portfolio",
+    "Dashboard": "Dashboard",
     "Contact": "Contact"
   },
   "name": "Ahmad Adham",
@@ -328,5 +329,12 @@
   "Single Page Applications",
   "Progressive Web Apps"
 ]
-  }
+  },
+  "login": {
+    "sonner": "Access denied. Please check your credentials.",
+    "title": "Sign in",
+    "email": "Enter your email",
+    "password": "Enter your password",
+    "button": "Login"
+}
 }
