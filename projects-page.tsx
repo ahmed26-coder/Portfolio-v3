@@ -80,8 +80,8 @@ export default function ProjectsPages() {
     featured: false
   })
 
-  // Fallback image URL for when images fail to load
-  const FALLBACK_IMAGE = "/placeholder-image.jpg"
+  // Fallback image as a data URL (gray placeholder)
+  const FALLBACK_IMAGE = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pgo8L3N2Zz4K"
 
   useEffect(() => {
     fetchProjects()
@@ -133,11 +133,9 @@ export default function ProjectsPages() {
           alt: img?.alt || `Gallery image ${index + 1} for ${projectTitle}`
         }
       }
-      return {
-        src: FALLBACK_IMAGE,
-        alt: `Gallery image ${index + 1} for ${projectTitle}`
-      }
-    }).filter(img => img.src) // Remove any invalid entries
+      // Don't use fallback for invalid entries, just skip them
+      return null
+    }).filter(Boolean) as ProjectImage[] // Remove null entries
   }
 
   // Process and validate techniques
@@ -191,7 +189,7 @@ export default function ProjectsPages() {
           disc: project.disc || { en: '', ar: '' },
           solution: project.solution || { en: '', ar: '' },
           challenge: project.challenge || { en: '', ar: '' },
-          image: isValidUrl(project.image) ? project.image : FALLBACK_IMAGE,
+          image: isValidUrl(project.image) ? project.image : null,
           featured: Boolean(project.featured)
         }
       })
@@ -571,10 +569,10 @@ export default function ProjectsPages() {
       featured: project.featured || false
     })
     
-    // Set previews for existing images
-    setMainImagePreview(isValidUrl(project.image) ? project.image : FALLBACK_IMAGE)
+    // Set previews for existing images (only show valid images)
+    setMainImagePreview(isValidUrl(project.image) ? project.image : null)
     setAdditionalImagesPreviews(
-      project.images?.map(img => isValidUrl(img.src) ? img.src : FALLBACK_IMAGE) || []
+      project.images?.filter(img => isValidUrl(img.src)).map(img => img.src) || []
     )
     
     setIsAddDialogOpen(true)
@@ -850,8 +848,8 @@ export default function ProjectsPages() {
                           height={120}
                           className="object-cover rounded border"
                           onError={() => {
-                            console.error("Failed to load main image preview:", mainImagePreview)
-                            setMainImagePreview(FALLBACK_IMAGE)
+                            // Silently handle error by hiding the preview
+                            setMainImagePreview(null)
                           }}
                         />
                       </div>
@@ -931,10 +929,10 @@ export default function ProjectsPages() {
                               height={100}
                               className="object-cover rounded border"
                               onError={() => {
-                                console.error(`Failed to load additional image ${index + 1}: ${preview}`)
+                                // Remove the failed image from previews
                                 setAdditionalImagesPreviews(prev => {
                                   const newPreviews = [...prev]
-                                  newPreviews[index] = FALLBACK_IMAGE
+                                  newPreviews.splice(index, 1)
                                   return newPreviews
                                 })
                               }}
@@ -976,14 +974,16 @@ export default function ProjectsPages() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
           <Card key={project.id} className="overflow-hidden pt-0">
-            {project.image && (
+            {project.image && isValidUrl(project.image) && (
               <div className="aspect-video relative">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
                   className="object-cover"
-                  onError={() => console.error(`Failed to load image for project ${project.title}: ${project.image}`)}
+                  onError={() => {
+                    // Silently handle error - could hide the image container or show fallback
+                  }}
                 />
               </div>
             )}
