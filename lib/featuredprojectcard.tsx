@@ -9,10 +9,10 @@ import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
 interface FeaturedProjectCardProps {
   title: string
   id: string
-disc: {
-  en: string
-  ar: string
-}
+  disc: {
+    en: string
+    ar: string
+  }
   image: string
   demo?: string
   githup?: string
@@ -63,14 +63,16 @@ export default function FeaturedProjectCard({
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {techniques.map((tech) => (
-                <article
-                  key={tech}
-                  className="bg-zinc-100 text-zinc-800 py-0.5 px-3 hover:bg-blue-500 hover:text-white rounded-full dark:bg-zinc-800 dark:text-zinc-200"
-                >
-                  {tech}
-                </article>
-              ))}
+              {Array.isArray(techniques) &&
+                techniques.map((tech) => (
+                  <span
+                    key={tech}
+                    className="bg-zinc-100 text-zinc-800 py-0.5 px-3 rounded-full text-sm hover:bg-blue-500 hover:text-white dark:bg-zinc-800 dark:text-zinc-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
+
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import { Dot, MapPin, Bookmark, Github } from "lucide-react";
+import { Dot, MapPin, Github } from "lucide-react";
 import { Code, Rocket, Paintbrush } from "lucide-react";
 import Motion from "@/lib/motion.hand";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getTranslations } from 'next-intl/server';
 import { Link } from "@/i18n/navigation";
 import { Buttom } from "./home.client";
+import DownloadCVButton from "@/lib/downloadcv";
 
 export default async function Home() {
   const t = await getTranslations('HomePage');
@@ -35,7 +36,7 @@ export default async function Home() {
 
         <div className="flex flex-col sm:flex-row sm:justify-start gap-5 mt-10 w-full">
           <Buttom />
-          <a className="w-full sm:w-auto justify-center cursor-pointer flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-zinc-900 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md" href="/ATS_Friendly_Technical_Resume__2_ (9).pdf" download><span><Bookmark className="text-[#AEB1B7] font-bold text-lg" /></span>{t("button2")}</a>
+          <DownloadCVButton />
         </div>
       </div>
     </>

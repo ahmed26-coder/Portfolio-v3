@@ -81,14 +81,16 @@ export default function ProjectCard({
             <p className="line-clamp-3 text-zinc-600 dark:text-zinc-300 mt-1">{disc[locale]}</p>
           </div>
           <div className="flex flex-wrap gap-2 mt-4">
-            {techniques.map((tech) => (
-              <span
-                key={tech}
-                className="bg-zinc-100 text-zinc-800 py-0.5 px-3 rounded-full text-sm hover:bg-blue-500 hover:text-white dark:bg-zinc-800 dark:text-zinc-200"
-              >
-                {tech}
-              </span>
-            ))}
+            {Array.isArray(techniques) &&
+              techniques.map((tech) => (
+                <span
+                  key={tech}
+                  className="bg-zinc-100 text-zinc-800 py-0.5 px-3 rounded-full text-sm hover:bg-blue-500 hover:text-white dark:bg-zinc-800 dark:text-zinc-200"
+                >
+                  {tech}
+                </span>
+              ))}
+
           </div>
           <div className="mt-auto pt-4 flex justify-end">
             <Link

@@ -3,7 +3,7 @@ import DashboardPage from './dashboard.client'
 
 export default function page() {
   return (
-    <div>
+    <div className="">
       <DashboardPage />
     </div>
   )

@@ -5,7 +5,7 @@ import { useState, useRef, useEffect, useMemo, useCallback, MutableRefObject } f
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Briefcase, Mail, Sun, Menu, X, LucideIcon, Pin, LayoutDashboard } from "lucide-react";
+import { Home, User, Briefcase, Mail, Sun, Menu, X, LucideIcon, Pin } from "lucide-react";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./languages";
 import { useLocale, useTranslations } from "next-intl";
@@ -318,7 +318,6 @@ function Sidebar() {
       { href: "/about", title: t("About"), icon: User, label: t("About"), key: "About" },
       { href: "/portfolio", title: t("Portfolio"), icon: Briefcase, label: t("Portfolio"), key: "Portfolio" },
       { href: "/contact", title: t("Contact"), icon: Mail, label: t("Contact"), key: "Contact" },
-      { href: "/login", title: t("Dashboard"), icon: LayoutDashboard , label: t("Dashboard"), key: "Dashboard" },
     ],
     [t]
   );

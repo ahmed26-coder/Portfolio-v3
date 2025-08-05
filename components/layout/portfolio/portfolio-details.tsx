@@ -58,7 +58,6 @@ export default function ProjectDetailPage({ projectId }: ProjectDetailPageProps)
     const locale = useLocale() as 'en' | 'ar';
     const t = useTranslations('PortfolioPageid');
     const dir = locale === 'ar' ? 'rtl' : 'ltr';
-    //{t('about')}
     useEffect(() => {
         const fetchData = async () => {
             try {
