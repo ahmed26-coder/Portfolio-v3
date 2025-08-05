@@ -59,7 +59,7 @@ const ProjectGallery = ({ images, title }: ProjectGalleryProps) => {
   if (!images || images.length === 0) return null
 
   return (
-    <div className="grid grid-cols-3 gap-2 mt-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-4">
       {images.map((image, index) => (
         <div key={index} className="relative">
           <Image
@@ -68,7 +68,7 @@ const ProjectGallery = ({ images, title }: ProjectGalleryProps) => {
             width={150}
             height={100}
             priority
-            className="object-cover rounded border"
+            className="object-cover rounded border w-full h-auto"
             onError={() => {
               console.warn(`Failed to load gallery image ${index + 1}: ${image.src}`)
               toast.error(`Failed to load image ${index + 1} for ${title}. Using placeholder.`)
@@ -118,13 +118,6 @@ export default function ProjectsPages() {
     const toastId = toast.loading("Loading Projects")
 
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        toast.error("You must be logged in to view projects")
-        setLoading(false)
-        return
-      }
-
       const { data, error } = await supabase
         .from("Portfolio")
         .select("*")
@@ -243,7 +236,7 @@ export default function ProjectsPages() {
       return false
     }
     if (!newProject.challenge.en.trim() || !newProject.challenge.ar.trim()) {
-      toast.error("Both English and Arabic challenges are required")
+      toast.error("Both English03:39 PM 8/5/2025 English and Arabic challenges are required")
       return false
     }
     if (!editingProject && !newProject.image) {
@@ -312,11 +305,6 @@ export default function ProjectsPages() {
 
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
       const fullPath = folder ? `${folder}/${fileName}` : fileName
-
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        throw new Error("User must be authenticated to upload images")
-      }
 
       setIsUploading(true)
       setUploadProgress(0)
@@ -394,12 +382,6 @@ export default function ProjectsPages() {
     const toastId = toast.loading(editingProject ? "Updating Project" : "Adding Project")
 
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        toast.error("You must be logged in to add or update projects")
-        return
-      }
-
       let imageUrl = editingProject?.image || ""
       let additionalImagesUrls: string[] = editingProject?.images ? editingProject.images.map(img => img.src) : []
 
@@ -549,12 +531,6 @@ export default function ProjectsPages() {
     const toastId = toast.loading("Deleting Project...")
 
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        toast.error("You must be logged in to delete projects")
-        return
-      }
-
       const project = projects.find(p => p.id === projectToDelete)
       if (!project) {
         toast.error("Project not found")
@@ -600,63 +576,65 @@ export default function ProjectsPages() {
 
   if (loading) {
     return (
-      <div className="flex items-center text-center justify-center min-h-screen mx-auto h-[70vh]">
+      <div className="flex items-center justify-center min-h-screen mx-auto h-[70vh] px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading projects...</p>
+          <p className="text-muted-foreground text-sm sm:text-base">Loading projects...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-6 px-4 sm:px-6 lg:px-8 py-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-          <p className="text-muted-foreground">Manage your portfolio projects and showcase your work</p>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Projects</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">Manage your portfolio projects and showcase your work</p>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={(open) => {
           if (!open) resetForm()
           setIsAddDialogOpen(open)
         }}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="mr-2 h-4 w-4" />
               Add Project
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="w-full max-w-[85vw] sm:max-w-4xl md:max-w-5xl max-h-[85vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>{editingProject ? "Edit Project" : "Add New Project"}</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-lg sm:text-xl">{editingProject ? "Edit Project" : "Add New Project"}</DialogTitle>
+              <DialogDescription className="text-sm sm:text-base">
                 {editingProject ? "Update your project details" : "Add a new project to your portfolio"}
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
-                <Label htmlFor="title">Project Title</Label>
+                <Label htmlFor="title" className="text-sm sm:text-base">Project Title</Label>
                 <Input
                   id="title"
                   value={newProject.title}
                   onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
                   placeholder="e.g., E-commerce Platform"
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="disc_en">Description (English)</Label>
+                <Label htmlFor="disc_en" className="text-sm sm:text-base">Description (English)</Label>
                 <Textarea
                   id="disc_en"
                   value={newProject.disc.en}
                   onChange={(e) => setNewProject({ ...newProject, disc: { ...newProject.disc, en: e.target.value } })}
                   placeholder="Describe your project in English..."
                   rows={3}
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="disc_ar">Description (Arabic)</Label>
+                <Label htmlFor="disc_ar" className="text-sm sm:text-base">Description (Arabic)</Label>
                 <Textarea
                   id="disc_ar"
                   value={newProject.disc.ar}
@@ -664,22 +642,24 @@ export default function ProjectsPages() {
                   placeholder="وصف المشروع بالعربية..."
                   rows={3}
                   dir="rtl"
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="solution_en">Solution (English)</Label>
+                <Label htmlFor="solution_en" className="text-sm sm:text-base">Solution (English)</Label>
                 <Textarea
                   id="solution_en"
                   value={newProject.solution.en}
                   onChange={(e) => setNewProject({ ...newProject, solution: { ...newProject.solution, en: e.target.value } })}
                   placeholder="Describe the solution in English..."
                   rows={3}
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="solution_ar">Solution (Arabic)</Label>
+                <Label htmlFor="solution_ar" className="text-sm sm:text-base">Solution (Arabic)</Label>
                 <Textarea
                   id="solution_ar"
                   value={newProject.solution.ar}
@@ -687,22 +667,24 @@ export default function ProjectsPages() {
                   placeholder="وصف الحل بالعربية..."
                   rows={3}
                   dir="rtl"
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="challenge_en">Challenge (English)</Label>
+                <Label htmlFor="challenge_en" className="text-sm sm:text-base">Challenge (English)</Label>
                 <Textarea
                   id="challenge_en"
                   value={newProject.challenge.en}
                   onChange={(e) => setNewProject({ ...newProject, challenge: { ...newProject.challenge, en: e.target.value } })}
                   placeholder="Describe the challenge in English..."
                   rows={3}
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="challenge_ar">Challenge (Arabic)</Label>
+                <Label htmlFor="challenge_ar" className="text-sm sm:text-base">Challenge (Arabic)</Label>
                 <Textarea
                   id="challenge_ar"
                   value={newProject.challenge.ar}
@@ -710,21 +692,23 @@ export default function ProjectsPages() {
                   placeholder="وصف التحدي بالعربية..."
                   rows={3}
                   dir="rtl"
+                  className="text-sm sm:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="techniques">Technologies (comma-separated)</Label>
+                <Label htmlFor="techniques" className="text-sm sm:text-base">Technologies (comma-separated)</Label>
                 <Input
                   id="techniques"
                   value={newProject.techniques}
                   onChange={(e) => setNewProject({ ...newProject, techniques: e.target.value })}
                   placeholder="e.g., React, Node.js, PostgreSQL"
+                  className="text-sm sm:text-base"
                 />
               </div>
 
-              <div className="grid gap-2">
-                <Label htmlFor="featured">Featured Project</Label>
+              <div className="flex gap-2 items-center">
+                <Label htmlFor="featured" className="text-sm sm:text-base">Featured Project</Label>
                 <input
                   type="checkbox"
                   id="featured"
@@ -734,23 +718,25 @@ export default function ProjectsPages() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="demo">Live URL (optional)</Label>
+                  <Label htmlFor="demo" className="text-sm sm:text-base">Live URL (optional)</Label>
                   <Input
                     id="demo"
                     value={newProject.demo}
                     onChange={(e) => setNewProject({ ...newProject, demo: e.target.value })}
                     placeholder="https://example.com"
+                    className="text-sm sm:text-base"
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="github">GitHub URL (optional)</Label>
+                  <Label htmlFor="github" className="text-sm sm:text-base">GitHub URL (optional)</Label>
                   <Input
                     id="github"
                     value={newProject.github}
                     onChange={(e) => setNewProject({ ...newProject, github: e.target.value })}
                     placeholder="https://github.com/username/repo"
+                    className="text-sm sm:text-base"
                   />
                 </div>
               </div>
@@ -758,8 +744,8 @@ export default function ProjectsPages() {
               <div className="grid gap-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Upload Main Project Image</CardTitle>
-                    <CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">Upload Main Project Image</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">
                       Upload the main project image in JPG, PNG, or WebP format (max 5MB)
                     </CardDescription>
                   </CardHeader>
@@ -774,7 +760,7 @@ export default function ProjectsPages() {
                           alt="Main image preview"
                           width={200}
                           height={120}
-                          className="mx-auto rounded-md"
+                          className="mx-auto rounded-md w-full h-auto"
                         />
                       ) : editingProject && mainImagePreview ? (
                         <Image
@@ -782,12 +768,12 @@ export default function ProjectsPages() {
                           alt="Current main image"
                           width={200}
                           height={120}
-                          className="mx-auto rounded-md"
+                          className="mx-auto rounded-md w-full h-auto"
                         />
                       ) : (
                         <div className="flex flex-col items-center text-gray-500">
-                          <ImagePlus className="h-10 w-10" />
-                          <p>Click to upload image</p>
+                          <ImagePlus className="h-8 w-8 sm:h-10 sm:w-10" />
+                          <p className="text-sm sm:text-base">Click to upload image</p>
                         </div>
                       )}
                     </div>
@@ -811,7 +797,7 @@ export default function ProjectsPages() {
 
                     <Alert>
                       <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>
+                      <AlertDescription className="text-sm sm:text-base">
                         Only JPG, PNG, or WebP files are accepted. Maximum file size is 5MB.
                       </AlertDescription>
                     </Alert>
@@ -822,8 +808,8 @@ export default function ProjectsPages() {
               <div className="grid gap-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Upload Additional Images (Gallery)</CardTitle>
-                    <CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">Upload Additional Images (Gallery)</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">
                       Upload additional project images in JPG, PNG, or WebP format (max 5MB each)
                     </CardDescription>
                   </CardHeader>
@@ -833,7 +819,7 @@ export default function ProjectsPages() {
                       onClick={() => document.getElementById("additional-images-upload")?.click()}
                     >
                       {additionalImagesPreviews.length > 0 ? (
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                           {additionalImagesPreviews.map((preview, index) => (
                             <div key={index} className="relative">
                               <Image
@@ -841,7 +827,7 @@ export default function ProjectsPages() {
                                 alt={`Additional image ${index + 1}`}
                                 width={150}
                                 height={100}
-                                className="mx-auto rounded-md"
+                                className="mx-auto rounded-md w-full h-auto"
                               />
                               <Button
                                 type="button"
@@ -860,8 +846,8 @@ export default function ProjectsPages() {
                         </div>
                       ) : (
                         <div className="flex flex-col items-center text-gray-500">
-                          <ImagePlus className="h-10 w-10" />
-                          <p>Click to upload images</p>
+                          <ImagePlus className="h-8 w-8 sm:h-10 sm:w-10" />
+                          <p className="text-sm sm:text-base">Click to upload images</p>
                         </div>
                       )}
                     </div>
@@ -886,7 +872,7 @@ export default function ProjectsPages() {
 
                     <Alert>
                       <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>
+                      <AlertDescription className="text-sm sm:text-base">
                         Only JPG, PNG, or WebP files are accepted. Maximum file size is 5MB each.
                       </AlertDescription>
                     </Alert>
@@ -894,9 +880,9 @@ export default function ProjectsPages() {
                 </Card>
               </div>
             </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={resetForm} disabled={isSubmitting}>Cancel</Button>
-              <Button onClick={handleAddProject} disabled={isSubmitting}>
+            <DialogFooter className="flex flex-col sm:flex-row gap-2">
+              <Button variant="outline" onClick={resetForm} disabled={isSubmitting} className="w-full sm:w-auto">Cancel</Button>
+              <Button onClick={handleAddProject} disabled={isSubmitting} className="w-full sm:w-auto">
                 {isSubmitting ? "Processing..." : editingProject ? "Update Project" : "Add Project"}
               </Button>
             </DialogFooter>
@@ -904,7 +890,7 @@ export default function ProjectsPages() {
         </Dialog>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
           <Card key={project.id} className="overflow-hidden pt-0">
             {project.image && (
@@ -913,7 +899,7 @@ export default function ProjectsPages() {
                   src={project.image && isValidUrl(project.image) ? project.image : FALLBACK_IMAGE}
                   alt={project.title}
                   fill
-                  className="object-cover"
+                  className="object-cover w-auto h-auto "
                   onError={() => {
                     console.error(`Failed to load image for project ${project.title}: ${project.image}`)
                     toast.error(`Failed to load image for ${project.title}. Using placeholder.`)
@@ -921,10 +907,10 @@ export default function ProjectsPages() {
                 />
               </div>
             )}
-            <CardHeader className="pb-0 mb-0 ">
+            <CardHeader className="pb-0 mb-0">
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
-                  <CardTitle className="text-lg">{project.title}</CardTitle>
+                  <CardTitle className="text-base sm:text-lg">{project.title}</CardTitle>
                   {project.featured && (
                     <Badge variant="default" className="text-xs">Featured</Badge>
                   )}
@@ -939,8 +925,8 @@ export default function ProjectsPages() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4 pt-0 mt-0 ">
-              <CardDescription>{project.disc.en}</CardDescription>
+            <CardContent className="space-y-4 pt-0 mt-0">
+              <CardDescription className="text-sm sm:text-base">{project.disc.en}</CardDescription>
               <div className="flex flex-wrap gap-1">
                 {project.techniques?.map((tech, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -953,7 +939,7 @@ export default function ProjectsPages() {
               )}
               <div className="flex space-x-2">
                 {project.demo && (
-                  <Button variant="outline" size="sm" asChild>
+                  <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="mr-1 h-3 w-3" />
                       Live
@@ -961,7 +947,7 @@ export default function ProjectsPages() {
                   </Button>
                 )}
                 {project.github && (
-                  <Button variant="outline" size="sm" asChild>
+                  <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                       <Github className="mr-1 h-3 w-3" />
                       GitHub
@@ -975,18 +961,18 @@ export default function ProjectsPages() {
       </div>
 
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent>
+        <DialogContent className="w-full max-w-[95vw] sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Confirm Delete</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">Confirm Delete</DialogTitle>
+            <DialogDescription className="text-sm sm:text-base">
               Are you sure you want to delete this project? This action cannot be undone and will also delete all associated images.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
+          <DialogFooter className="flex flex-col sm:flex-row gap-2">
+            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)} className="w-full sm:w-auto">
               Cancel
             </Button>
-            <Button variant="destructive" onClick={confirmDelete}>
+            <Button variant="destructive" onClick={confirmDelete} className="w-full sm:w-auto">
               Delete
             </Button>
           </DialogFooter>
