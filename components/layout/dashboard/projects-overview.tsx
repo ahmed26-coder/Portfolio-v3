@@ -926,7 +926,7 @@ export default function ProjectsPages() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4 pt-0 mt-0">
-              <CardDescription className="text-sm sm:text-base">{project.disc.en}</CardDescription>
+              <CardDescription className="text-sm sm:text-base line-clamp-5 ">{project.disc.en}</CardDescription>
               <div className="flex flex-wrap gap-1">
                 {project.techniques?.map((tech, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
