@@ -171,7 +171,7 @@ export default function ProjectDetailPage({ projectId }: ProjectDetailPageProps)
                             {t('type')}
                         </div>
                         <h1 className="text-4xl font-bold tracking-tight mb-2">{project.title}</h1>
-                        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl">{project.disc[locale]}</p>
+                        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-7xl">{project.disc[locale]}</p>
                     </div>
                     <div className="flex flex-wrap gap-3">
                         {project.demo && (
