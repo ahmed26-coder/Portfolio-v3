@@ -14,8 +14,8 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [previousEmails, setPreviousEmails] = useState<string[]>([]);
 
-  const correctEmail = process.env.NEXT_PUBLIC_CORRECT_EMAIL;
-  const correctPassword = process.env.NEXT_PUBLIC_CORRECT_PASSWORD;
+  const correctEmail = process.env.CORRECT_EMAIL;
+  const correctPassword = process.env.CORRECT_PASSWORD;
   useEffect(() => {
     const savedEmail = localStorage.getItem('login_email');
     const savedPassword = localStorage.getItem('login_password');
