@@ -36,6 +36,7 @@ export default function LoginPage() {
       localStorage.setItem('emails_list', JSON.stringify(updatedList));
     }
     if (email === correctEmail && password === correctPassword) {
+      sessionStorage.setItem('isAdmin', 'true');
       router.push('/dashboard');
     } else {
       toast.error(t('sonner'));
