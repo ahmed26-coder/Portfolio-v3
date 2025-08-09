@@ -33,7 +33,7 @@ export async function Footer () {
       <footer className="w-full mx-auto sm:px-10 items-center h-fit flex flex-col sm:flex-row sm:flex-wrap justify-between py-[2%] sm:py-[0.5%] bg-gray-100 dark:bg-black text-left">
         <small className="dark:text-[#FFFFFF]/40 text-[#999999] flex gap-0.5 items-center font-play">
           <Image src="/logome6-removebg-preview.webp" alt="Logo" width={30} height={30} priority />
-          <Link href="https://dashboard-gules-nu-72.vercel.app/">&copy;2025{" "}</Link>
+          <Link target="_black" className="cursor-default" href="https://dashboard-gules-nu-72.vercel.app/">&copy;2025{" "}</Link>
           <span className="text-black dark:text-white text-sm space-x-0.5 font-bold">
             <span>{t('name')}</span><span className="dark:text-[#FFFFFF]/40 text-[#999999]">.{t('role')}</span>
           </span>
