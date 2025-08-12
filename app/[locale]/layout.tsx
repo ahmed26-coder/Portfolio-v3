@@ -53,29 +53,14 @@ export async function generateMetadata({
       images: [
         {
           url: "/logome6-removebg-preview.webp",
-          width: 800,
-          height: 420,
-          alt: t.title
-        },
-        {
-          url: "/logome6-removebg-preview.webp",
-          width: 1200,
-          height: 1200,
-          alt: t.title
-        },
-        {
-          url: "/logome6-removebg-preview.webp",
-          width: 600,
-          height: 315,
+          width: 300,
+          height: 157,
           alt: t.title
         }
       ],
       locale: locale === "ar" ? "ar_EG" : "en_US",
       type: "website"
     },
-    icons: {
-      icon: "/logome6-removebg-preview.webp"
-    }
   };
 }
 export default async function LocaleLayout({
