@@ -1,10 +1,11 @@
 import React from "react"
-import { Lightbulb, Brain, Users, Smartphone, Bookmark } from "lucide-react"
+import { Lightbulb, Brain, Users, Smartphone } from "lucide-react"
 import { Rocket, BookOpen, Code, TrendingUp } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import Motions from "@/lib/motion.image"
 import Motion from "@/lib/motion.hand";
 import { getTranslations } from 'next-intl/server';
+import DownloadLatestCV from "@/lib/downloadcv"
 
 export default async function About() {
   const t = await getTranslations('AboutPage');
@@ -26,7 +27,7 @@ export default async function About() {
       </div>
 
       <div className="flex justify-center sm:justify-start mt-10">
-                            <a className="w-full sm:w-auto justify-center cursor-pointer flex items-center gap-2 border-2 py-1 px-6 text-lg border-[#AEB1B7] rounded-md" href="/ATS_Friendly_Technical_Resume__2_ (9).pdf" download><Bookmark className="text-[#AEB1B7] font-bold text-lg" />Download Cv</a>
+        <DownloadLatestCV />
       </div>
     </div>
   )
