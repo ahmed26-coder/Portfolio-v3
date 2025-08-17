@@ -336,5 +336,14 @@
     "email": "Enter your email",
     "password": "Enter your password",
     "button": "Login"
+},
+"error": {
+  "Oops": "Oops! Something Broke",
+  "my": "My portfolio encountered an unexpected error. Don't worry—it's not your fault. Let's get you back on track.",
+  "this": "This error has been logged for review",
+  "try": "Try Again",
+  "go": "Go Home",
+  "error": "Error Details (Development)",
+  "portfolio": "Portfolio"
 }
 }
