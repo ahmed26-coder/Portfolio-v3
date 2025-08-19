@@ -54,7 +54,7 @@ export default function ContactSection() {
             submitContactForm(formData).then((res) => {
                 setIsLoading(false)
                 if (res.success) {
-                    toast.success(t('success'))
+                    toast.success(t('success', { name: formData.name }))
                     setFormData({ name: "", email: "", phone: "", message: "" })
                 } else {
                     toast.error(t('error'))

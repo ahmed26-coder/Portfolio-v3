@@ -257,7 +257,7 @@
   "disc": "I'm always thrilled to dive into exciting new projects, explore bold and creative ideas, and seize incredible opportunities to collaborate and bring your unique visions to life in the most impactful way possible.",
   "phoneRegex": "Please enter a valid phone number (only digits, optionally starting with +).",
   "nameRegex": "Please enter a real name consisting of at least one first name and one last name.",
-  "success": "Message sent successfully!",
+  "success": "Thank you {name}, your message has been sent successfully! I will get back to you as soon as possible.",
   "error": "Something went wrong!",
   "name": "Name",
   "titlename": "Full Name",
@@ -330,13 +330,6 @@
   "Progressive Web Apps"
 ]
   },
-  "login": {
-    "sonner": "Access denied. Please check your credentials.",
-    "title": "Sign in",
-    "email": "Enter your email",
-    "password": "Enter your password",
-    "button": "Login"
-},
 "error": {
   "Oops": "Oops! Something Broke",
   "my": "My portfolio encountered an unexpected error. Don't worry—it's not your fault. Let's get you back on track.",
