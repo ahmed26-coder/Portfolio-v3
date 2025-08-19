@@ -127,7 +127,7 @@ const DesktopSidebar = ({
     onMouseEnter={!isLargeScreen && !isPinned ? () => setIsExpanded(true) : undefined}
     onMouseLeave={!isLargeScreen && !isPinned ? () => setIsExpanded(false) : undefined}
   >
-    {isExpanded && !isLargeScreen && (
+    {(isPinned || (isExpanded && !isLargeScreen)) && (
       <button
         onClick={() => setIsPinned(!isPinned)}
         className={`absolute top-4 right-4 ${
@@ -342,18 +342,22 @@ function Sidebar() {
 
   // Restore pin state from localStorage on mount
   useEffect(() => {
-  try {
-    const savedPinned = localStorage.getItem("sidebarPinned") === "true";
-    setIsPinned(savedPinned);
-  } catch (error) {
-    console.error("Error accessing localStorage:", error);
-    setIsPinned(false);
-  }
+    try {
+      const savedPinned = localStorage.getItem("sidebarPinned") === "true";
+      setIsPinned(savedPinned);
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
+      setIsPinned(false);
+    }
   }, []);
 
   // Save pin state to localStorage
   useEffect(() => {
-    localStorage.setItem("sidebarPinned", String(isPinned));
+    try {
+      localStorage.setItem("sidebarPinned", String(isPinned));
+    } catch (error) {
+      console.error("Error saving to localStorage:", error);
+    }
   }, [isPinned]);
 
   // Handle screen resizing
