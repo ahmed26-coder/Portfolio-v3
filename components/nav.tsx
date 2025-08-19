@@ -342,8 +342,13 @@ function Sidebar() {
 
   // Restore pin state from localStorage on mount
   useEffect(() => {
+  try {
     const savedPinned = localStorage.getItem("sidebarPinned") === "true";
     setIsPinned(savedPinned);
+  } catch (error) {
+    console.error("Error accessing localStorage:", error);
+    setIsPinned(false);
+  }
   }, []);
 
   // Save pin state to localStorage
