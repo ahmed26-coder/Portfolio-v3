@@ -47,11 +47,10 @@ interface MenuItemConfig {
 const MenuItem = React.memo(function MenuItem({ icon: Icon, label, isExpanded, isActive, onClick }: MenuItemProps) {
   return (
     <div
-      className={`flex gap-4 items-center w-full px-3 py-2 text-lg rounded-lg cursor-pointer transition-all duration-200 ${
-        isActive
+      className={`flex gap-4 items-center w-full px-3 py-2 text-lg rounded-lg cursor-pointer transition-all duration-200 ${isActive
           ? "bg-gray-200 dark:bg-[#AEB1B7]/32 text-black dark:text-white font-semibold"
           : "text-[#666666] dark:text-[#FFFFFF]/50"
-      }`}
+        }`}
       onClick={onClick}
     >
       <Icon
@@ -121,25 +120,28 @@ const DesktopSidebar = ({
   locale: string;
 }) => (
   <div
-    className={`hidden lg:flex flex-col h-[100vh] top-0 bg-white dark:bg-black sm:sticky left-0 transition-[width,padding,opacity] duration-300 ease-in-out hover:bg-white dark:hover:bg-black ${
-      isExpanded || isPinned ? "fixed w-56 left-0 p-4 z-50 opacity-100" : "sticky w-20 py-4 px-0 sm:sticky top-0 opacity-90"
-    }`}
+    className={`hidden lg:flex flex-col h-[100vh] top-0 bg-white dark:bg-black sm:sticky left-0 transition-[width,padding,opacity] duration-300 ease-in-out hover:bg-white dark:hover:bg-black ${isExpanded || isPinned ? "fixed w-56 left-0 p-4 z-50 opacity-100" : "sticky w-20 py-4 px-0 sm:sticky top-0 opacity-90"
+      }`}
     onMouseEnter={!isLargeScreen && !isPinned ? () => setIsExpanded(true) : undefined}
     onMouseLeave={!isLargeScreen && !isPinned ? () => setIsExpanded(false) : undefined}
   >
     {(isPinned || (isExpanded && !isLargeScreen)) && (
       <button
         onClick={() => setIsPinned(!isPinned)}
-        className={`absolute top-4 right-4 ${
-          isPinned
+        className={`
+      absolute top-4 
+      ${locale === "ar" ? "left-5" : "right-5"} 
+      ${isPinned
             ? "text-green-500 hover:text-green-600"
             : "text-[#666666] dark:text-[#FFFFFF]/50 hover:text-black dark:hover:text-white"
-        }`}
+          }
+    `}
         aria-label={isPinned ? "Unpin Sidebar" : "Pin Sidebar"}
       >
         <Pin size={20} />
       </button>
     )}
+
     <div className="flex flex-col items-center mb-6">
       <Image
         className="rounded-full"
@@ -182,7 +184,7 @@ const DesktopSidebar = ({
             label={label}
             isExpanded={isExpanded || isPinned}
             isActive={normalizedPathname === href}
-            onClick={() => {}}
+            onClick={() => { }}
           />
         </Link>
       ))}
@@ -422,9 +424,8 @@ function Sidebar() {
         />
       </div>
       <div
-        className={`z-50 lg:hidden fixed top-0 left-0 w-full bg-gray-100 dark:bg-black flex justify-between items-center p-4 shadow-lg transition-transform duration-300 ${
-          isMobileHeaderVisible ? "translate-y-0" : "-translate-y-full"
-        }`}
+        className={`z-50 lg:hidden fixed top-0 left-0 w-full bg-gray-100 dark:bg-black flex justify-between items-center p-4 shadow-lg transition-transform duration-300 ${isMobileHeaderVisible ? "translate-y-0" : "-translate-y-full"
+          }`}
       >
         <Link locale={locale} href="/">
           <div className="flex items-center space-x-3">
