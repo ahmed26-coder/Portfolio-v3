@@ -153,7 +153,7 @@ export default function ProjectDetailPage({ projectId }: ProjectDetailPageProps)
     }
 
     return (
-        <div className="mx-auto max-w-7xl text-start px-4 py-12 md:pt-16 -mb-20">
+        <div className="mx-auto max-w-7xl text-start px-4 py-12 mt-15 lg:mt-0 md:pt-16">
             <div className="mb-8">
                 <Button variant="ghost" asChild className="group">
                     <Link href="/portfolio" className="flex items-center gap-2">
