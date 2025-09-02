@@ -291,7 +291,7 @@
 },
 
 "notFound": {
-  "title": "Page Not Found",
+  "title": "404",
   "description": "Sorry, the page you’re looking for doesn’t exist.",
   "button": "Go Back Home"
 },
