@@ -13,11 +13,12 @@ export default async function NotFound() {
           autoPlay
           loop
           muted
+          preload="auto"
           playsInline
           className="w-full h-auto object-cover"
         />
       </div>
-      <div className="absolute bottom-0 left-0 w-full flex flex-col items-center mb-25 px-4 text-black">
+      <div className="absolute bottom-0 left-0 w-full flex flex-col items-center mb-35 px-4 text-black">
         <h1 className="text-4xl md:text-5xl font-bold mb-2 text-center">{t("title")}</h1>
         <p className="mb-6 text-center">{t("description")}</p>
         <Button asChild>
