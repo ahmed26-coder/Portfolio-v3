@@ -76,7 +76,7 @@ export default function FeaturedProjectCard({
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap justify-between gap-3">
+          <div className="mt-6 flex flex-wrap justify-between gap-3"> 
             {demo && (
               <button>
                 <Link href={demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">

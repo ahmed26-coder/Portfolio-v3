@@ -6,7 +6,7 @@ export default async function RootLayout({
   params,
 }: {
   children: ReactNode;
-params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>
 }) {
   const locale = (await params).locale;
   const validLocale = ['ar', 'en'].includes(locale) ? locale : 'en';
@@ -19,7 +19,14 @@ params: Promise<{ locale: string }>
       className="dark"
       suppressHydrationWarning
     >
-        {children}
+      <head>
+        <script
+          defer
+          data-domain="portfolio-ahmad-developer.vercel.app/en"
+          src="https://plausible.io/js/script.js"
+        ></script>
+      </head>
+      {children}
     </html>
   );
 }
