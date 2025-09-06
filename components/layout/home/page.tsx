@@ -8,9 +8,7 @@ export default function page() {
   return (
     <div>
       <Home />
-      <div className="max-h-[400px]">
-        <Skills />
-      </div>
+      <Skills />
       <Services />
       <Project />
       <TestimonialsCarousel />
