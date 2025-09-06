@@ -5,7 +5,7 @@ import ContactSection from "./contact.client";
 export async function Contact() {
   const t = await getTranslations('ContactPage');
   return (
-    <section className=" relative min-h-screen pt-[25%] sm:pt-[13%] lg:pt-[5%] pb-[10%] sm:pb-0 sm:py-[5%] w-full ">
+    <section className=" relative min-h-screen 2xl:min-h-fit  pt-[25%] sm:pt-[13%] lg:pt-[5%] pb-[10%] sm:pb-0 sm:py-[5%] w-full ">
       <div className="xl:max-w-[1800px] mx-auto ">
         <div className="text-center mb-5 sm:mb-3 lg:mb-10">
           <h5 className="text-gray-500 text-lg">{t('git')}</h5>

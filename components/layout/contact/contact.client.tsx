@@ -185,7 +185,7 @@ export default function ContactSection() {
                                     <button
                                         type="submit"
                                         aria-label="Send Message"
-                                        className={`w-full flex items-center justify-center space-x-2 px-6 py-2 text-white rounded-lg transition-opacity ${isLoading || isPending
+                                        className={`w-full flex items-center 2xl:mb-20 justify-center space-x-2 px-6 py-2 text-white rounded-lg transition-opacity ${isLoading || isPending
                                             ? "bg-gray-200 cursor-not-allowed"
                                             : "bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90"
                                             }`}
